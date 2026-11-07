@@ -1,0 +1,1017 @@
+Notebook[
+ {Cell[BoxData[RowBox[{RowBox[{"startTime", " ", "=", " ", 
+        RowBox[{"Tick", "[", "]"}]}], ";"}]], "Input", 
+   CellLabel -> "In[1]:=", ExpressionUUID -> 
+    "77c95e54-27f8-4b2d-9124-9b9aae2bb297"], 
+  Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "1"}], ":", 
+          " ", RowBox[{RowBox[{"Read", " ", "Topspin"}], "-", 
+            RowBox[{"Processed", " ", "Spectra"}]}]}], "*)"}], 
+      "\[IndentingNewLine]", "\[IndentingNewLine]", 
+      RowBox[{RowBox[{RowBox[{"wd2DDARR37C", " ", "=", "  ", 
+            RowBox[{"Dropbox", " ", "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\\d\
+ata\\\\tsudarshan\\\\TR-20250830-WT37COligomer\""}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2DDARR20ms37C", " ", 
+            "=", " ", RowBox[{"GetBruker2D", "[", RowBox[{"wd2DDARR37C", ",", 
+                " ", "2", ",", " ", RowBox[{"{", RowBox[{"100", ",", " ", 
+                    "100"}], "}"}]}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"spectrum2DDARR500ms37C", " ", "=", " ", 
+            RowBox[{"GetBruker2D", "[", RowBox[{"wd2DDARR37C", ",", " ", 
+                RowBox[{"{", RowBox[{"3", ",", "4", ",", "5"}], "}"}], ",", 
+                " ", RowBox[{"{", RowBox[{"100", ",", " ", "100"}], "}"}]}], 
+              "]"}]}], ";"}]}]}]], "Input", CellLabel -> "In[2]:=", 
+   ExpressionUUID -> "d4c0c398-8685-44b0-82e8-042d56c53cdd"], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "2"}], 
+             ":", " ", RowBox[{"Plot", " ", "2", "D", " ", "Spectra"}]}], 
+           "*)"}], "\[IndentingNewLine]", 
+         RowBox[{RowBox[{RowBox[{"darkGreen", " ", "=", " ", RowBox[
+                {"RGBColor", "[", RowBox[{"0", ",", " ", "0.5", ",", " ", 
+                   "0"}], "]"}]}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"spectrum2DDARR20ms37CPlotAliphatic", " ", "=", 
+               " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                  {"spectrum2DDARR20ms37C", ",", RowBox[{"ContourStyle", 
+                     "->", RowBox[{"RGBColor", "[", RowBox[{"0", ",", "0.99", 
+                         ",", "0.82"}], "]"}]}], ",", " ", RowBox[
+                    {"RegionToPlot", " ", "->", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"65", ",", " ", "65"}], "}"}], 
+                         ",", " ", RowBox[{"{", RowBox[{"10", ",", " ", 
+                          "10"}], "}"}]}], "}"}]}]}], "]"}]}], ";"}], 
+           "\[IndentingNewLine]", "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"spectrum2DDARR500ms37CPlotAliphatic", " ", "=", 
+               " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                  {"spectrum2DDARR500ms37C", ",", " ", RowBox[
+                    {"ContourStyle", " ", "->", " ", "Black"}], ",", " ", 
+                   RowBox[{"RegionToPlot", " ", "->", " ", RowBox[{"{", 
+                       RowBox[{RowBox[{"{", RowBox[{"65", ",", " ", "65"}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"10", ",", 
+                          " ", "10"}], "}"}]}], "}"}]}]}], "]"}]}], 
+             ";"}]}]}]], "Input", CellLabel -> "In[5]:=", 
+      ExpressionUUID -> "f7e1cf4f-9f00-44cc-a401-3b54030f67ba"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "3"}], 
+             ":", " ", RowBox[{"Construct", " ", "Interactive", " ", 
+               "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+             "graphics", " ", "to", " ", "overlay", " ", "on", " ", "left", 
+             " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{RowBox[{RowBox[{"graphic1", " ", "=", " ", 
+               "spectrum2DDARR20ms37CPlotAliphatic"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", "=", " ", 
+               "spectrum2DDARR20ms37C"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"graphic2", " ", "=", " ", 
+               "spectrum2DDARR500ms37CPlotAliphatic"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", "=", " ", 
+               "spectrum2DDARR500ms37C"}], ";"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"(*", RowBox[{"Define", " ", 
+               "grid", " ", "of", " ", "sliders"}], "*)"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+             RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{"\"slice on 20 ms 2D DARR: \"", ",", " ", 
+                     RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRa", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "70"}], "}"}]}], "]"}], ",", 
+                     " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", "[", 
+                         "frequencyDARRa", "]"}], "]"}]}], "}"}], ",", 
+                 "\[IndentingNewLine]", " ", RowBox[{"{", RowBox[
+                    {"\"slice on 500 ms 2D DARR\"", ",", " ", RowBox[
+                      {"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRb", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "70"}], "}"}]}], "]"}], ",", 
+                     " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", "[", 
+                         "frequencyDARRb", "]"}], "]"}]}], "}"}]}], "}"}], 
+             "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"Dynamic", "[", 
+             RowBox[{RowBox[{"Grid", "[", RowBox[{"{", RowBox[{"{", 
+                     RowBox[{RowBox[{"Show", "[", RowBox[{"graphic1", ",", 
+                          " ", "graphic2", ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", RowBox[
+                          {"Line", "[", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "80"}], ",", " ", RowBox[{"-", 
+                          "frequencyDARRa"}]}], "}"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", RowBox[{"-", 
+                          "frequencyDARRa"}]}], "}"}]}], "}"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"Black", ",", 
+                          " ", RowBox[{"Line", "[", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "80"}], ",", 
+                          " ", RowBox[{"-", "frequencyDARRb"}]}], "}"}], ",", 
+                          " ", RowBox[{"{", RowBox[{"0", ",", " ", RowBox[
+                          {"-", "frequencyDARRb"}]}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}]}], "}"}]}]}], "]"}], ",", " ", 
+                       RowBox[{"Manipulate", "[", RowBox[{RowBox[
+                          {"NMR1DPlot", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRHSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", "80"}], 
+                          ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRHSlice", "[", RowBox[{RowBox[
+                          {"Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "80"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", "Black"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+               " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                 "False"}]}], "]"}]}]}]], "Input", CellLabel -> "In[8]:=", 
+      ExpressionUUID -> "87051238-877e-4537-9de2-30338e82677d"]}, Open]], 
+  Cell[CellGroupData[{Cell[BoxData[{RowBox[{"Tock", "[", "startTime", "]"}], 
+        "\[IndentingNewLine]", RowBox[
+         {RowBox[{"(*", RowBox[{RowBox[{"20", "s", " ", "on", " ", 
+                "ImagineDragons"}], ",", " ", RowBox[{"M1", " ", "Macbook", 
+                " ", "Pro"}]}], "*)"}]}]}], "Input", CellLabel -> "In[18]:=", 
+      ExpressionUUID -> "32b49acd-565e-4d19-b1bc-43094e00aca1"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[
+       {RowBox[{RowBox[{RowBox[{"spectrum2DDARR20ms37CPlottophalf", " ", "=", 
+              " ", RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37C", 
+                  ",", RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", "[", 
+                      RowBox[{"0", ",", "0.99", ",", "0.82"}], "]"}]}], ",", 
+                  " ", RowBox[{"RegionToPlot", " ", "->", " ", RowBox[
+                     {"{", RowBox[{RowBox[{"{", RowBox[{"185", ",", "65"}], 
+                          "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}], 
+          "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"spectrum2DDARR500ms37CPlottophalf", " ", "=", " ", 
+            RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37C", ",", 
+                " ", RowBox[{"ContourStyle", " ", "->", " ", "Black"}], ",", 
+                " ", RowBox[{"RegionToPlot", " ", "->", RowBox[{"{", 
+                    RowBox[{RowBox[{"{", RowBox[{"185", ",", "65"}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+                    "}"}]}]}], "]"}]}], ";"}]}], "Input", 
+      CellLabel -> "In[19]:=", ExpressionUUID -> 
+       "8361d8ce-e7d9-4436-a871-93c9ecaf30ab"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "3"}], 
+             ":", " ", RowBox[{"Construct", " ", "Interactive", " ", 
+               "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+             "graphics", " ", "to", " ", "overlay", " ", "on", " ", "left", 
+             " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{RowBox[{RowBox[{"graphic3", " ", "=", " ", 
+               "spectrum2DDARR20ms37CPlottophalf"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", "=", " ", 
+               "spectrum2DDARR20ms37C"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"graphic4", "=", " ", 
+               "spectrum2DDARR500ms37CPlottophalf"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", "=", " ", 
+               "spectrum2DDARR500ms37C"}], ";"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"(*", RowBox[{"Define", " ", 
+               "grid", " ", "of", " ", "sliders"}], "*)"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+             RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{"\"slice on 20 ms 2D DARR: \"", ",", " ", 
+                     RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRa", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "70"}], "}"}]}], "]"}], ",", 
+                     " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", "[", 
+                         "frequencyDARRa", "]"}], "]"}]}], "}"}], ",", 
+                 "\[IndentingNewLine]", " ", RowBox[{"{", RowBox[
+                    {"\"slice on 500 ms 2D DARR\"", ",", " ", RowBox[
+                      {"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRb", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "70"}], "}"}]}], "]"}], ",", 
+                     " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", "[", 
+                         "frequencyDARRb", "]"}], "]"}]}], "}"}]}], "}"}], 
+             "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"Dynamic", "[", 
+             RowBox[{RowBox[{"Grid", "[", RowBox[{"{", RowBox[{"{", 
+                     RowBox[{RowBox[{"Show", "[", RowBox[{"graphic3", ",", 
+                          " ", "graphic4", ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", RowBox[
+                          {"Line", "[", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", RowBox[
+                          {"-", "frequencyDARRa"}]}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", RowBox[{"-", 
+                          "frequencyDARRa"}]}], "}"}]}], "}"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"Black", ",", 
+                          " ", RowBox[{"Line", "[", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "185"}], ",", 
+                          " ", RowBox[{"-", "frequencyDARRb"}]}], "}"}], ",", 
+                          " ", RowBox[{"{", RowBox[{"0", ",", " ", RowBox[
+                          {"-", "frequencyDARRb"}]}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}]}], "}"}]}]}], "]"}], ",", " ", 
+                       RowBox[{"Manipulate", "[", RowBox[{RowBox[
+                          {"NMR1DPlot", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRHSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRHSlice", "[", RowBox[{RowBox[
+                          {"Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", "Black"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+               " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                 "False"}]}], "]"}]}]}]], "Input", CellLabel -> "In[21]:=", 
+      ExpressionUUID -> "de81934e-192a-4673-ab42-427cf6b4a48f"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[{RowBox[{RowBox[{RowBox[{"spectrum2DDARR20ms37CPlot", "=", 
+              " ", RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37C", 
+                  ",", RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", "[", 
+                      RowBox[{"0", ",", "0.99", ",", "0.82"}], "]"}]}], ",", 
+                  " ", RowBox[{"RegionToPlot", " ", "->", " ", RowBox[
+                     {"{", RowBox[{RowBox[{"{", RowBox[{"185", ",", "185"}], 
+                          "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}], 
+          "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"spectrum2DDARR500ms37CPlot", " ", "=", " ", 
+            RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37C", ",", 
+                " ", RowBox[{"ContourStyle", " ", "->", " ", "Black"}], ",", 
+                " ", RowBox[{"RegionToPlot", " ", "->", RowBox[{"{", 
+                    RowBox[{RowBox[{"{", RowBox[{"185", ",", "185"}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+                    "}"}]}]}], "]"}]}], ";"}]}], "Input", 
+      CellLabel -> "In[31]:=", ExpressionUUID -> 
+       "85dfa13f-8d87-4ef9-9c8a-1ea42db2799a"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "3"}], 
+             ":", " ", RowBox[{"Construct", " ", "Interactive", " ", 
+               "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+             "graphics", " ", "to", " ", "overlay", " ", "on", " ", "left", 
+             " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+         RowBox[{RowBox[{RowBox[{"graphic3", " ", "=", " ", 
+               "spectrum2DDARR20ms37CPlot"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"spectrum1", " ", "=", " ", 
+               "spectrum2DDARR20ms37C"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"graphic4", "=", " ", 
+               "spectrum2DDARR500ms37CPlot"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"spectrum2", " ", "=", " ", 
+               "spectrum2DDARR500ms37C"}], ";"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"(*", RowBox[{"Define", " ", 
+               "grid", " ", "of", " ", "sliders"}], "*)"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+               "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+             RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                   RowBox[{"\"Vertical slice on 20 ms 2D DARR: \"", ",", " ", 
+                     RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRa", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "185"}], "}"}]}], "]"}], 
+                     ",", " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", 
+                         "[", "frequencyDARRa", "]"}], "]"}]}], "}"}], ",", 
+                 "\[IndentingNewLine]", " ", RowBox[{"{", RowBox[
+                    {"\"Vertical slice on 500 ms 2D DARR\"", ",", " ", 
+                     RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", "[", 
+                          "frequencyDARRb", "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", "185"}], "}"}]}], "]"}], 
+                     ",", " ", RowBox[{"InputField", "[", RowBox[{"Dynamic", 
+                         "[", "frequencyDARRb", "]"}], "]"}]}], "}"}]}], 
+               "}"}], "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+           "\[IndentingNewLine]", RowBox[{"Dynamic", "[", 
+             RowBox[{RowBox[{"Grid", "[", RowBox[{"{", RowBox[{"{", 
+                     RowBox[{RowBox[{"Show", "[", RowBox[{"graphic3", ",", 
+                          " ", "graphic4", ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", RowBox[
+                          {"Line", "[", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          " ", RowBox[{RowBox[{"-", "frequencyDARRa"}], ",", 
+                          RowBox[{"-", "185"}]}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "frequencyDARRa"}], ",", 
+                          "0"}], "}"}]}], "}"}], "]"}]}], "}"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"Black", ",", " ", RowBox[
+                          {"Line", "[", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "frequencyDARRb"}], ",", 
+                          RowBox[{"-", "185"}]}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "frequencyDARRb"}], ",", 
+                          "0"}], "}"}]}], "}"}], "]"}]}], "}"}]}], "}"}]}]}], 
+                         "]"}], ",", " ", RowBox[{"Manipulate", "[", RowBox[
+                          {RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRVSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRVSlice", "[", RowBox[{RowBox[
+                          {"Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", "Black"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+               " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                 "False"}]}], "]"}]}]}]], "Input", CellLabel -> "In[33]:=", 
+      ExpressionUUID -> "506906a3-cd7d-4ab8-b677-5084c2fccd9e"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell["Checking for 20ms vs 500ms in the resuspended sample", "Section", 
+      ExpressionUUID -> "d269839f-bcc9-4aaf-8aee-40244d9b7ffa"], 
+     Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", "1"}], 
+             ":", " ", RowBox[{RowBox[{"Read", " ", "Topspin"}], "-", RowBox[
+                {"Processed", " ", "Spectra"}]}]}], "*)"}], 
+         "\[IndentingNewLine]", "\[IndentingNewLine]", 
+         RowBox[{RowBox[{RowBox[{"wd2DDARR37C", " ", "=", "  ", RowBox[
+                {"Dropbox", " ", "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\
+\\\\tsudarshan\\\\TR-20250830-WT37COligomer\""}]}], ";"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2DDARR20ms37C", 
+               " ", "=", " ", RowBox[{"GetBruker2D", "[", RowBox[
+                  {"wd2DDARR37C", ",", " ", "2", ",", " ", RowBox[
+                    {"{", RowBox[{"100", ",", " ", "100"}], "}"}]}], "]"}]}], 
+             ";"}], "\[IndentingNewLine]", RowBox[
+            {RowBox[{"spectrum2DDARR500ms37C", " ", "=", " ", RowBox[
+                {"GetBruker2D", "[", RowBox[{"wd2DDARR37C", ",", " ", 
+                   RowBox[{"{", RowBox[{"3", ",", "4", ",", "5"}], "}"}], 
+                   ",", " ", RowBox[{"{", RowBox[{"100", ",", " ", "100"}], 
+                     "}"}]}], "]"}]}], ";"}]}]}]], "Input", 
+      CellLabel -> "In[43]:=", ExpressionUUID -> 
+       "045e792c-bc96-4aa2-bab0-3074079e9c8a"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"GetBrukerTitles", "[", 
+              RowBox[{"wd37Clabeled2", "=", " ", RowBox[{"Dropbox", " ", 
+                  "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\
+\\\\DD-20250412-37Clabeledwater-CPMAS-Efree\""}]}], "]"}], ";"}]], "Input", 
+         CellLabel -> "In[46]:=", ExpressionUUID -> 
+          "0faea5d0-2b78-4ab9-a1c2-b3a51e42d832"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{"spectrum2DDARR20ms37CL2", " ", 
+             "=", " ", RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled2", 
+                 ",", " ", "6"}], "]"}]}], ";"}], "\[IndentingNewLine]"}]], 
+      "Input", CellLabel -> "In[47]:=", ExpressionUUID -> 
+       "49f7748e-1b02-44a9-89ba-2619907a890e"], 
+     Cell[BoxData[RowBox[{RowBox[{"spectrum2DDARR500ms37CL2", " ", "=", " ", 
+           RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled2", ",", " ", 
+               RowBox[{"{", RowBox[{"7", ",", "10", ",", "11"}], "}"}]}], 
+             "]"}]}], ";"}]], "Input", CellLabel -> "In[48]:=", 
+      ExpressionUUID -> "a348f5fd-46e8-4d98-966d-a17df86fdead"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[{RowBox[{RowBox[{"spectrum2DDARR20ms37CPlotAliphaticL2", 
+               " ", "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                  {"spectrum2DDARR20ms37CL2", ",", RowBox[{"ContourStyle", 
+                     "->", RowBox[{"RGBColor", "[", RowBox[{"0", ",", "0.99", 
+                         ",", "0.02"}], "]"}]}], ",", " ", RowBox[
+                    {"RegionToPlot", " ", "->", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"65", ",", " ", "65"}], "}"}], 
+                         ",", " ", RowBox[{"{", RowBox[{"5", ",", " ", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}], 
+           "\[IndentingNewLine]", RowBox[
+            {RowBox[{"spectrum2DDARR500ms37CPlotAliphaticL2", "=", " ", 
+               RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", 
+                   ",", " ", RowBox[{"ContourStyle", " ", "->", " ", 
+                     "Blue"}], ",", " ", RowBox[{"RegionToPlot", " ", "->", 
+                     " ", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"65", 
+                          ",", " ", "65"}], "}"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"5", ",", " ", "5"}], "}"}]}], "}"}]}]}], 
+                 "]"}]}], ";"}]}], "Input", CellLabel -> "In[49]:=", 
+         ExpressionUUID -> "e6666d82-f902-41a6-b955-b117dfea1df6"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", 
+                  "3"}], ":", " ", RowBox[{"Construct", " ", "Interactive", 
+                  " ", "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+                "graphics", " ", "to", " ", "overlay", " ", "on", " ", 
+                "left", " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{RowBox[{RowBox[{"graphic1", " ", "=", " ", 
+                  "spectrum2DDARR20ms37CPlotAliphaticL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", "=", 
+                  " ", "spectrum2DDARR20ms37CL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"graphic2", " ", "=", 
+                  " ", "spectrum2DDARR500ms37CPlotAliphaticL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", "=", 
+                  " ", "spectrum2DDARR500ms37CL2"}], ";"}], 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[{"(*", 
+                RowBox[{"Define", " ", "grid", " ", "of", " ", "sliders"}], 
+                "*)"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", 
+                  "[", "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+                  "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+                RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                      RowBox[{"\"slice on 20 ms 2D DARR: \"", ",", " ", 
+                        RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", 
+                          "[", "frequencyDARRa", "]"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "70"}], "}"}]}], 
+                          "]"}], ",", " ", RowBox[{"InputField", "[", 
+                          RowBox[{"Dynamic", "[", "frequencyDARRa", "]"}], 
+                          "]"}]}], "}"}], ",", "\[IndentingNewLine]", " ", 
+                    RowBox[{"{", RowBox[{"\"slice on 500 ms 2D DARR\"", ",", 
+                        " ", RowBox[{"Slider", "[", RowBox[{RowBox[
+                          {"Dynamic", "[", "frequencyDARRb", "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"0", ",", " ", "70"}], 
+                          "}"}]}], "]"}], ",", " ", RowBox[{"InputField", 
+                          "[", RowBox[{"Dynamic", "[", "frequencyDARRb", 
+                          "]"}], "]"}]}], "}"}]}], "}"}], 
+                "\[IndentingNewLine]", "]"}], "\[IndentingNewLine]", 
+              "\[IndentingNewLine]", RowBox[{"Dynamic", "[", RowBox[
+                 {RowBox[{"Grid", "[", RowBox[{"{", RowBox[{"{", RowBox[
+                         {RowBox[{"Show", "[", RowBox[{"graphic1", ",", " ", 
+                          "graphic2", ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.02"}], "]"}], ",", " ", RowBox[
+                          {"Line", "[", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "80"}], ",", " ", RowBox[{"-", 
+                          "frequencyDARRa"}]}], "}"}], ",", " ", RowBox[{"{", 
+                          RowBox[{"0", ",", " ", RowBox[{"-", 
+                          "frequencyDARRa"}]}], "}"}]}], "}"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{"Blue", ",", 
+                          " ", RowBox[{"Line", "[", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "80"}], ",", 
+                          " ", RowBox[{"-", "frequencyDARRb"}]}], "}"}], ",", 
+                          " ", RowBox[{"{", RowBox[{"0", ",", " ", RowBox[
+                          {"-", "frequencyDARRb"}]}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}]}], "}"}]}]}], "]"}], ",", " ", 
+                          RowBox[{"Manipulate", "[", RowBox[{RowBox[
+                          {"NMR1DPlot", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRHSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", "80"}], 
+                          ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRHSlice", "[", RowBox[{RowBox[{
+                          "Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "80"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.02"}], "]"}], ",", " ", "Blue"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+                  " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                    "False"}]}], "]"}]}]}]], "Input", 
+         CellLabel -> "In[51]:=", ExpressionUUID -> 
+          "3376bae8-aea7-473a-b79a-a882f4e1c406"]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[{RowBox[{RowBox[{RowBox[{"spectrum2DDARR20ms37CPlotL2", 
+                 "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                    {"spectrum2DDARR20ms37C", ",", RowBox[{"ContourStyle", 
+                       "->", RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.02"}], "]"}]}], ",", " ", 
+                     RowBox[{"RegionToPlot", " ", "->", " ", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{"185", ",", "185"}], 
+                          "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}], 
+             "\[IndentingNewLine]"}], "\[IndentingNewLine]", 
+           RowBox[{RowBox[{"spectrum2DDARR500ms37CPlotL2", " ", "=", " ", 
+               RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37C", 
+                   ",", " ", RowBox[{"ContourStyle", " ", "->", " ", 
+                     "Blue"}], ",", " ", RowBox[{"RegionToPlot", " ", "->", 
+                     RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"185", ",", 
+                          "185"}], "}"}], ",", RowBox[{"{", RowBox[{"5", ",", 
+                          "5"}], "}"}]}], "}"}]}]}], "]"}]}], ";"}]}], 
+         "Input", CellLabel -> "In[61]:=", ExpressionUUID -> 
+          "7dc36bb3-24fa-4ac6-bfe0-bce85d2c216f"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[{RowBox[{RowBox[{RowBox[
+                {"spectrum2DDARR20ms37CPlottophalfL2", "=", " ", 
+                 RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", 
+                     ",", RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", 
+                         "[", RowBox[{"0", ",", "0.99", ",", "0.02"}], 
+                         "]"}]}], ",", " ", RowBox[{"RegionToPlot", " ", 
+                       "->", " ", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                          {"185", ",", "65"}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{"5", ",", "5"}], "}"}]}], "}"}]}]}], 
+                   "]"}]}], ";"}], "\[IndentingNewLine]"}], 
+           "\[IndentingNewLine]", RowBox[
+            {RowBox[{"spectrum2DDARR500ms37CPlottophalfL2", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", ",", 
+                   " ", RowBox[{"ContourStyle", " ", "->", " ", "Blue"}], 
+                   ",", " ", RowBox[{"RegionToPlot", " ", "->", RowBox[
+                      {"{", RowBox[{RowBox[{"{", RowBox[{"185", ",", "65"}], 
+                          "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}]}], "Input", 
+         CellLabel -> "In[63]:=", ExpressionUUID -> 
+          "64b2594c-cd82-4e80-a25f-52b99d632b26"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", 
+                  "3"}], ":", " ", RowBox[{"Construct", " ", "Interactive", 
+                  " ", "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+                "graphics", " ", "to", " ", "overlay", " ", "on", " ", 
+                "left", " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{RowBox[{RowBox[{"graphic3", " ", "=", " ", 
+                  "spectrum2DDARR20ms37CPlotL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", "=", 
+                  " ", "spectrum2DDARR20ms37CL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"graphic4", "=", " ", 
+                  "spectrum2DDARR500ms37CPlotL2"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", "=", 
+                  " ", "spectrum2DDARR500ms37CL2"}], ";"}], 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[{"(*", 
+                RowBox[{"Define", " ", "grid", " ", "of", " ", "sliders"}], 
+                "*)"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", 
+                  "[", "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+                  "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+                RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                      RowBox[{"\"Vertical slice on 20 ms 2D DARR: \"", ",", 
+                        " ", RowBox[{"Slider", "[", RowBox[{RowBox[
+                          {"Dynamic", "[", "frequencyDARRa", "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"0", ",", " ", "185"}], 
+                          "}"}]}], "]"}], ",", " ", RowBox[{"InputField", 
+                          "[", RowBox[{"Dynamic", "[", "frequencyDARRa", 
+                          "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+                    " ", RowBox[{"{", RowBox[
+                       {"\"Vertical slice on 500 ms 2D DARR\"", ",", " ", 
+                        RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", 
+                          "[", "frequencyDARRb", "]"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "185"}], "}"}]}], 
+                          "]"}], ",", " ", RowBox[{"InputField", "[", 
+                          RowBox[{"Dynamic", "[", "frequencyDARRb", "]"}], 
+                          "]"}]}], "}"}]}], "}"}], "\[IndentingNewLine]", 
+                "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"Dynamic", "[", RowBox[{RowBox[{"Grid", "[", 
+                    RowBox[{"{", RowBox[{"{", RowBox[{RowBox[{"Show", "[", 
+                          RowBox[{"graphic3", ",", " ", "graphic4", ",", " ", 
+                          RowBox[{"Epilog", " ", "\[Rule]", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"RGBColor", "[", RowBox[{"0", ",", "0.99", ",", 
+                          "0.02"}], "]"}], ",", " ", RowBox[{"Line", "[", 
+                          RowBox[{"{", RowBox[{RowBox[{"{", " ", RowBox[
+                          {RowBox[{"-", "frequencyDARRa"}], ",", RowBox[{"-", 
+                          "185"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "frequencyDARRa"}], ",", "0"}], 
+                          "}"}]}], "}"}], "]"}]}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{"Blue", ",", " ", RowBox[{"Line", 
+                          "[", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"-", "frequencyDARRb"}], ",", RowBox[{"-", 
+                          "185"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "frequencyDARRb"}], ",", "0"}], 
+                          "}"}]}], "}"}], "]"}]}], "}"}]}], "}"}]}]}], "]"}], 
+                          ",", " ", RowBox[{"Manipulate", "[", RowBox[
+                          {RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRVSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRVSlice", "[", RowBox[{RowBox[{
+                          "Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.02"}], "]"}], ",", " ", "Blue"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+                  " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                    "False"}]}], "]"}]}]}]], "Input", 
+         CellLabel -> "In[65]:=", ExpressionUUID -> 
+          "4ebe54be-84d7-4b35-ae8c-2dfaf503ed47"]}, Open]]}, Open]], 
+  Cell[CellGroupData[{Cell["Are there any differences between resuspended \
+sample (in red) and lyophilized sample (green)?", "Section", 
+      ExpressionUUID -> "7d05c9b1-c3d8-47eb-a20e-7e994c914c92"], 
+     Cell[CellGroupData[{Cell["20ms DARR", "Subsection", 
+         ExpressionUUID -> "84565976-0d0f-4cfa-96cc-9605368f5fd8"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{RowBox[
+                {"spectrum2DDARR20ms37CPlotL2again", "=", " ", RowBox[
+                  {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", 
+                     RowBox[{"ContourStyle", "->", "Red"}], ",", " ", 
+                     RowBox[{"RegionToPlot", " ", "->", " ", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{"185", ",", "185"}], 
+                          "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], 
+                          "}"}]}], "}"}]}]}], "]"}]}], ";"}]], "Input", 
+            CellLabel -> "In[75]:=", ExpressionUUID -> 
+             "0d169cb5-5a4c-43bb-96a7-51bb64540a11"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[
+                  {RowBox[{"Step", " ", "3"}], ":", " ", RowBox[{"Construct", 
+                     " ", "Interactive", " ", "Widget"}]}], "*)"}], 
+               "\[IndentingNewLine]", RowBox[{"(*", RowBox[{"Define", " ", 
+                   "2", "D", " ", "NMR", " ", "graphics", " ", "to", " ", 
+                   "overlay", " ", "on", " ", "left", " ", "panel"}], "*)"}], 
+               "\[IndentingNewLine]", RowBox[{RowBox[{RowBox[{"graphic3", 
+                     " ", "=", " ", "spectrum2DDARR20ms37CPlot"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", 
+                     "=", " ", "spectrum2DDARR20ms37C"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"graphic4", "=", " ", 
+                     "spectrum2DDARR20ms37CPlotL2again"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", 
+                     "=", " ", "spectrum2DDARR20ms37CL2"}], ";"}], 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[
+                  {"(*", RowBox[{"Define", " ", "grid", " ", "of", " ", 
+                     "sliders"}], "*)"}], "\[IndentingNewLine]", 
+                 RowBox[{RowBox[{"Dynamic", "[", "frequencyDARRa", "]"}], 
+                   ";"}], "\[IndentingNewLine]", RowBox[{RowBox[
+                    {"frequencyDARRa", " ", "=", " ", "39.86"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+                     "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+                 RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], 
+                   ";"}], "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+                   RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                         RowBox[{"\"Vertical slice on 20 ms 2D DARR: \"", 
+                          ",", " ", RowBox[{"Slider", "[", RowBox[{RowBox[
+                          {"Dynamic", "[", "frequencyDARRa", "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"0", ",", " ", "185"}], 
+                          "}"}]}], "]"}], ",", " ", RowBox[{"InputField", 
+                          "[", RowBox[{"Dynamic", "[", "frequencyDARRa", 
+                          "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+                       " ", RowBox[{"{", RowBox[
+                          {"\"Vertical slice on 500 ms 2D DARR\"", ",", " ", 
+                          RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", 
+                          "[", "frequencyDARRb", "]"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "185"}], "}"}]}], 
+                          "]"}], ",", " ", RowBox[{"InputField", "[", RowBox[
+                          {"Dynamic", "[", "frequencyDARRb", "]"}], "]"}]}], 
+                         "}"}]}], "}"}], "\[IndentingNewLine]", "]"}], 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[
+                  {"Dynamic", "[", RowBox[{RowBox[{"Grid", "[", RowBox[
+                        {"{", RowBox[{"{", RowBox[{RowBox[{"Show", "[", 
+                          RowBox[{"graphic3", ",", " ", "graphic4", ",", " ", 
+                          RowBox[{"Epilog", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"{", RowBox[{RowBox[{"RGBColor", 
+                          "[", RowBox[{"0", ",", "0.99", ",", "0.82"}], 
+                          "]"}], ",", " ", RowBox[{"Line", "[", RowBox[{"{", 
+                          RowBox[{RowBox[{"{", " ", RowBox[{RowBox[{"-", 
+                          "frequencyDARRa"}], ",", RowBox[{"-", "185"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRa"}], ",", "0"}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {"Red", ",", " ", RowBox[{"Line", "[", RowBox[{"{", 
+                          RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRb"}], ",", RowBox[{"-", "185"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRb"}], ",", "0"}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}]}], "}"}]}]}], "]"}], ",", " ", 
+                          RowBox[{"Manipulate", "[", RowBox[{RowBox[
+                          {"NMR1DPlot", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRVSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRVSlice", "[", RowBox[{RowBox[{
+                          "Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", "Red"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+                     " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                       "False"}]}], "]"}]}]}]], "Input", CellLabel -> 
+             "In[97]:=", ExpressionUUID -> 
+             "6ac88320-047b-4496-9321-bc2b63e499b2"]}, Open]]}, Open]]}, 
+    Open]], Cell[CellGroupData[{Cell["HSlice", "Subtitle", 
+      ExpressionUUID -> "adc669a2-f289-4afb-bc7f-ca25ef513381"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{RowBox[{"Step", " ", 
+                  "3"}], ":", " ", RowBox[{"Construct", " ", "Interactive", 
+                  " ", "Widget"}]}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{"(*", RowBox[{"Define", " ", "2", "D", " ", "NMR", " ", 
+                "graphics", " ", "to", " ", "overlay", " ", "on", " ", 
+                "left", " ", "panel"}], "*)"}], "\[IndentingNewLine]", 
+            RowBox[{RowBox[{RowBox[{"graphic3", " ", "=", " ", 
+                  "spectrum2DDARR20ms37CPlot"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", "=", 
+                  " ", "spectrum2DDARR20ms37C"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"graphic4", "=", " ", 
+                  "spectrum2DDARR20ms37CPlotL2again"}], ";"}], 
+              "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", "=", 
+                  " ", "spectrum2DDARR20ms37CL2"}], ";"}], 
+              "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[{"(*", 
+                RowBox[{"Define", " ", "grid", " ", "of", " ", "sliders"}], 
+                "*)"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", 
+                  "[", "frequencyDARRa", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRa", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+                  "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+              RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], 
+                ";"}], "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+                RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                      RowBox[{"\"Vertical slice on 20 ms 2D DARR: \"", ",", 
+                        " ", RowBox[{"Slider", "[", RowBox[{RowBox[
+                          {"Dynamic", "[", "frequencyDARRa", "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"0", ",", " ", "185"}], 
+                          "}"}]}], "]"}], ",", " ", RowBox[{"InputField", 
+                          "[", RowBox[{"Dynamic", "[", "frequencyDARRa", 
+                          "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+                    " ", RowBox[{"{", RowBox[
+                       {"\"Vertical slice on 500 ms 2D DARR\"", ",", " ", 
+                        RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", 
+                          "[", "frequencyDARRb", "]"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "185"}], "}"}]}], 
+                          "]"}], ",", " ", RowBox[{"InputField", "[", 
+                          RowBox[{"Dynamic", "[", "frequencyDARRb", "]"}], 
+                          "]"}]}], "}"}]}], "}"}], "\[IndentingNewLine]", 
+                "]"}], "\[IndentingNewLine]", "\[IndentingNewLine]", 
+              RowBox[{"Dynamic", "[", RowBox[{RowBox[{"Grid", "[", 
+                    RowBox[{"{", RowBox[{"{", RowBox[{RowBox[{"Show", "[", 
+                          RowBox[{"graphic3", ",", " ", "graphic4", ",", " ", 
+                          RowBox[{"Epilog", " ", "\[Rule]", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"RGBColor", "[", RowBox[{"0", ",", "0.99", ",", 
+                          "0.82"}], "]"}], ",", " ", RowBox[{"Line", "[", 
+                          RowBox[{"{", RowBox[{RowBox[{"{", " ", RowBox[
+                          {RowBox[{"-", "frequencyDARRa"}], ",", RowBox[{"-", 
+                          "185"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "frequencyDARRa"}], ",", "0"}], 
+                          "}"}]}], "}"}], "]"}]}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{"Red", ",", " ", RowBox[{"Line", "[", 
+                          RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "frequencyDARRb"}], ",", RowBox[{"-", 
+                          "185"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "frequencyDARRb"}], ",", "0"}], 
+                          "}"}]}], "}"}], "]"}]}], "}"}]}], "}"}]}]}], "]"}], 
+                          ",", " ", RowBox[{"Manipulate", "[", RowBox[
+                          {RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[{"{", 
+                          RowBox[{RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRHSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRHSlice", "[", RowBox[{RowBox[{
+                          "Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"RGBColor", "[", RowBox[{"0", ",", 
+                          "0.99", ",", "0.82"}], "]"}], ",", " ", "Red"}], 
+                          "}"}]}], ",", " ", RowBox[{"Epilog", " ", 
+                          "\[Rule]", " ", RowBox[{"Text", "[", RowBox[
+                          {"frequencyDARRa", ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"-", "100"}], ",", " ", RowBox[{"6", " ", 
+                          SuperscriptBox["10", "6"]}]}], "}"}]}], "]"}]}]}], 
+                          "]"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"{", 
+                          RowBox[{"sDARRa", ",", " ", "5"}], "}"}], ",", " ", 
+                          "0.1", ",", " ", "10"}], "}"}], ",", " ", RowBox[
+                          {"{", RowBox[{RowBox[{"{", RowBox[{"sDARRb", ",", 
+                          " ", "1"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}]}], "]"}]}], "}"}], "}"}], "]"}], ",", 
+                  " ", RowBox[{"SynchronousUpdating", "\[Rule]", " ", 
+                    "False"}]}], "]"}]}]}]], "Input", 
+         CellLabel -> "In[107]:=", ExpressionUUID -> 
+          "d07e5df3-5201-4d81-bb3b-7622cc3668ae"]}, Open]], 
+     Cell[CellGroupData[{Cell["500ms DARR", "Subsection", 
+         ExpressionUUID -> "ddd0b7d6-24ea-4788-b7bc-7b24829ed31f"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{RowBox[
+                {"spectrum2DDARR500ms37CPlotL2again", "=", " ", 
+                 RowBox[{"NMR2DPlot", "[", RowBox[
+                    {"spectrum2DDARR500ms37CL2", ",", RowBox[{"ContourStyle", 
+                       "->", "Red"}], ",", " ", RowBox[{"RegionToPlot", " ", 
+                       "->", " ", RowBox[{"{", RowBox[{RowBox[{"{", RowBox[
+                          {"185", ",", "185"}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{"5", ",", "5"}], "}"}]}], "}"}]}]}], 
+                   "]"}]}], ";"}]], "Input", CellLabel -> "In[86]:=", 
+            ExpressionUUID -> "2a28ee66-d196-4220-8cb4-fc6e1f7b26d9"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[
+                  {RowBox[{"Step", " ", "3"}], ":", " ", RowBox[{"Construct", 
+                     " ", "Interactive", " ", "Widget"}]}], "*)"}], 
+               "\[IndentingNewLine]", RowBox[{"(*", RowBox[{"Define", " ", 
+                   "2", "D", " ", "NMR", " ", "graphics", " ", "to", " ", 
+                   "overlay", " ", "on", " ", "left", " ", "panel"}], "*)"}], 
+               "\[IndentingNewLine]", RowBox[{RowBox[{RowBox[{"graphic3", 
+                     " ", "=", " ", "spectrum2DDARR500ms37CPlot"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum1", " ", 
+                     "=", " ", "spectrum2DDARR500ms37C"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"graphic4", "=", " ", 
+                     "spectrum2DDARR500ms37CPlotL2again"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"spectrum2", " ", 
+                     "=", " ", "spectrum2DDARR500ms37CL2"}], ";"}], 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[
+                  {"(*", RowBox[{"Define", " ", "grid", " ", "of", " ", 
+                     "sliders"}], "*)"}], "\[IndentingNewLine]", 
+                 RowBox[{RowBox[{"Dynamic", "[", "frequencyDARRa", "]"}], 
+                   ";"}], "\[IndentingNewLine]", RowBox[{RowBox[
+                    {"frequencyDARRa", " ", "=", " ", "39.86"}], ";"}], 
+                 "\[IndentingNewLine]", RowBox[{RowBox[{"Dynamic", "[", 
+                     "frequencyDARRb", "]"}], ";"}], "\[IndentingNewLine]", 
+                 RowBox[{RowBox[{"frequencyDARRb", " ", "=", " ", "39.86"}], 
+                   ";"}], "\[IndentingNewLine]", RowBox[{"Grid", "[", 
+                   RowBox[{"{", RowBox[{RowBox[{"{", "\[IndentingNewLine]", 
+                         RowBox[{"\"Vertical slice on 20 ms 2D DARR: \"", 
+                          ",", " ", RowBox[{"Slider", "[", RowBox[{RowBox[
+                          {"Dynamic", "[", "frequencyDARRa", "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{"0", ",", " ", "185"}], 
+                          "}"}]}], "]"}], ",", " ", RowBox[{"InputField", 
+                          "[", RowBox[{"Dynamic", "[", "frequencyDARRa", 
+                          "]"}], "]"}]}], "}"}], ",", "\[IndentingNewLine]", 
+                       " ", RowBox[{"{", RowBox[
+                          {"\"Vertical slice on 500 ms 2D DARR\"", ",", " ", 
+                          RowBox[{"Slider", "[", RowBox[{RowBox[{"Dynamic", 
+                          "[", "frequencyDARRb", "]"}], ",", " ", RowBox[
+                          {"{", RowBox[{"0", ",", " ", "185"}], "}"}]}], 
+                          "]"}], ",", " ", RowBox[{"InputField", "[", RowBox[
+                          {"Dynamic", "[", "frequencyDARRb", "]"}], "]"}]}], 
+                         "}"}]}], "}"}], "\[IndentingNewLine]", "]"}], 
+                 "\[IndentingNewLine]", "\[IndentingNewLine]", RowBox[
+                  {"Dynamic", "[", RowBox[{RowBox[{"Grid", "[", RowBox[
+                        {"{", RowBox[{"{", RowBox[{RowBox[{"Show", "[", 
+                          RowBox[{"graphic3", ",", " ", "graphic4", ",", " ", 
+                          RowBox[{"Epilog", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"{", RowBox[{"Black", ",", " ", 
+                          RowBox[{"Line", "[", RowBox[{"{", RowBox[{RowBox[
+                          {"{", " ", RowBox[{RowBox[{"-", "frequencyDARRa"}], 
+                          ",", RowBox[{"-", "185"}]}], "}"}], ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRa"}], ",", "0"}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {"Red", ",", " ", RowBox[{"Line", "[", RowBox[{"{", 
+                          RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRb"}], ",", RowBox[{"-", "185"}]}], 
+                          "}"}], ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "frequencyDARRb"}], ",", "0"}], "}"}]}], "}"}], 
+                          "]"}]}], "}"}]}], "}"}]}]}], "]"}], ",", " ", 
+                          RowBox[{"Manipulate", "[", RowBox[{RowBox[
+                          {"NMR1DPlot", "[", RowBox[{RowBox[{"{", RowBox[
+                          {RowBox[{"MultiplyY", "[", RowBox[{RowBox[
+                          {"TakeXRange", "[", RowBox[{RowBox[{"NMRVSlice", 
+                          "[", RowBox[{RowBox[{"Sequence", "@@", 
+                          "spectrum1"}], ",", " ", "frequencyDARRa"}], "]"}], 
+                          ",", " ", RowBox[{"{", RowBox[{RowBox[{"-", 
+                          "185"}], ",", " ", "0"}], "}"}]}], "]"}], ",", " ", 
+                          "sDARRa"}], "]"}], ",", " ", RowBox[{"MultiplyY", 
+                          "[", RowBox[{RowBox[{"TakeXRange", "[", RowBox[
+                          {RowBox[{"NMRVSlice", "[", RowBox[{RowBox[{
+                          "Sequence", "@@", "spectrum2"}], ",", " ", 
+                          "frequencyDARRb"}], "]"}], ",", " ", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "185"}], ",", " ", "0"}], 
+                          "}"}]}], "]"}], ",", " ", "sDARRb"}], "]"}]}], 
+                          "}"}], ",", " ", RowBox[{"PlotRange", " ", 
+                          "\[Rule]", " ", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", "20"}], ",", " ", "150"}], "}"}], " ", 
+                          SuperscriptBox["10", "6"]}]}], ",", " ", RowBox[
+                          {"PlotStyle", " ", "\[Rule]", " ", RowBox[{"{", 
+                          RowBox[{"Black", ",", " ", "Red"}], "}"}]}], ",", 
+                          " ", RowBox[{"Epilog", " ", "\[Rule]", " ", RowBox[
+                          {"Text", "[", RowBox[{"frequencyDARRa", ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", "100"}], ",", 
+                          " ", RowBox[{"6", " ", SuperscriptBox["10", 
+                          "6"]}]}], "}"}]}], "]"}]}]}], "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"sDARRa", 
+                          ",", " ", "5"}], "}"}], ",", " ", "0.1", ",", " ", 
+                          "10"}], "}"}], ",", " ", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{"sDARRb", ",", " ", "1"}], 
+                          "}"}], ",", " ", "0.1", ",", " ", "10"}], "}"}]}], 
+                          "]"}]}], "}"}], "}"}], "]"}], ",", " ", RowBox[
+                      {"SynchronousUpdating", "\[Rule]", " ", "False"}]}], 
+                   "]"}]}]}]], "Input", CellLabel -> "In[117]:=", 
+            ExpressionUUID -> "adaaed39-6752-49d5-b276-bfd4e4888702"]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"RandomCoilCShift", "[", "\"I\"", "]"}]], 
+            "Input", CellLabel -> "In[127]:=", ExpressionUUID -> 
+             "5d1dc0f4-ed0a-4673-b202-23687adb29b6"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"RandomCoilCShift", "[", 
+               "\"F\"", "]"}]], "Input", CellLabel -> "In[128]:=", 
+            ExpressionUUID -> "8e6e2ed1-48f8-4076-a3ba-3d26ae673d72"]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"RandomCoilCShift", "[", "\"A\"", "]"}]], 
+            "Input", CellLabel -> "In[129]:=", ExpressionUUID -> 
+             "5013fd52-cf7b-496d-a762-c450a0b4d429"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"RandomCoilCShift", "[", 
+               "\"M\"", "]"}]], "Input", CellLabel -> "In[130]:=", 
+            ExpressionUUID -> "e8f4a67a-9b1f-47ba-8137-49d93d5b3cb6"]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"RandomCoilCShift", "[", "\"V\"", "]"}]], 
+            "Input", CellLabel -> "In[131]:=", ExpressionUUID -> 
+             "9b1cca21-204f-49fc-b554-ec46b6c84dfa"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"RandomCoilCShift", "[", 
+               "\"L\"", "]"}]], "Input", CellLabel -> "In[132]:=", 
+            ExpressionUUID -> "22598a96-77cd-454e-aad6-41d1901ab2a8"]}, 
+          Open]]}, Open]]}, Open]]}, WindowSize -> {1440, 741.75}, 
+ WindowMargins -> {{954, Automatic}, {Automatic, -6}}, 
+ Magnification :> 0.7*Inherited, FrontEndVersion -> 
+  "13.3 for Microsoft Windows (64-bit) (July 24, 2023)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "7fd363fc-fa25-47ef-b558-641f75621cbb"]

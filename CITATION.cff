@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the manuscript below."
+title: "Analysis code and NMR raw data for the Aβ42 37 °C oligomer study"
+type: software
+version: 1.0.0
+date-released: 2026-11-07
+license: MIT
+repository-code: "https://github.com/ddinakarapandian/abeta42-37C-oligomer"
+authors:
+  - {family-names: Dinakarapandian, given-names: Daniel M, orcid: "https://orcid.org/0009-0000-0081-3958"}
+  - {family-names: Rao Sudarshan, given-names: Tarunya, orcid: "https://orcid.org/0009-0006-7482-2594"}
+  - {family-names: Griffin, given-names: Martin N, orcid: "https://orcid.org/0009-0006-9671-4674"}
+  - {family-names: Ramaswamy, given-names: Pranay, orcid: "https://orcid.org/0009-0004-6337-5456"}
+  - {family-names: Nguyen, given-names: Phuong H}
+  - {family-names: Chiu, given-names: Tzu-Ying, orcid: "https://orcid.org/0009-0006-2590-696X"}
+  - {family-names: Li, given-names: Chenxing, orcid: "https://orcid.org/0009-0009-2645-635X"}
+  - {family-names: Kamalaldinezabadi, given-names: S. Shirin, orcid: "https://orcid.org/0000-0001-9446-7194"}
+  - {family-names: Watzlawik, given-names: Jens O, orcid: "https://orcid.org/0000-0003-0610-0267"}
+  - {family-names: Rosenberry, given-names: Terrone L, orcid: "https://orcid.org/0000-0003-3579-7681"}
+  - {family-names: Stagg, given-names: Scott M, orcid: "https://orcid.org/0000-0001-8855-4152"}
+  - {family-names: Wen, given-names: Zhexing, orcid: "https://orcid.org/0000-0002-1518-3845"}
+  - {family-names: Wood, given-names: Levi B, orcid: "https://orcid.org/0000-0002-4248-0888"}
+  - {family-names: Paravastu, given-names: Anant K, orcid: "https://orcid.org/0000-0001-7183-1942"}

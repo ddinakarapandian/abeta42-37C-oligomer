@@ -1,0 +1,101 @@
+Notebook[
+ {Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{"ChangeDirectory", "[", 
+         RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input", 
+      CellLabel -> "In[2]:=", ExpressionUUID -> 
+       "9b99e3fe-9aea-4e07-8418-fe31f2c0f7c4"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{"GetBrukerTitles", "[", 
+         RowBox[{"wd", " ", "=", " ", RowBox[{"Dropbox", " ", "<>", " ", 
+             "\n", "  ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\\\\T\
+R-20250830-WT37COligomer\""}]}], "]"}]], "Input", CellLabel -> "In[3]:=", 
+      ExpressionUUID -> "ab6da9bc-4978-4b3e-bfab-91a2b34c6a51"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[{Cell[BoxData[{"C13ChemicalShiftRange2D", 
+        "\[IndentingNewLine]", "C13AliphaticChemicalShiftRange2D", 
+        "\[IndentingNewLine]", RowBox[
+         {"C13AromaticAlphaticChemicalShiftRange2D", " ", "=", " ", 
+          RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"150", ",", " ", "80"}], 
+                "}"}], ",", " ", RowBox[{"{", RowBox[{"110", ",", " ", "0"}], 
+                "}"}]}], "}"}]}]}], "Input", CellLabel -> "In[4]:=", 
+      ExpressionUUID -> "c136a1dc-9b3b-47a8-8dd4-832ba5f2c0d0"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[{RowBox[{"plot2DDARR20msFull", " ", "=", " ", 
+          RowBox[{"NMR2DPlot", "[", RowBox[
+             {RowBox[{"Abeta37ColigomerDARR20ms2D", " ", "=", " ", 
+                RowBox[{"GetBruker2D", "[", RowBox[{"wd", ",", " ", "2", ",", 
+                    " ", RowBox[{"{", RowBox[{"100", ",", " ", "100"}], 
+                      "}"}]}], "]"}]}], ",", " ", RowBox[{"RegionToPlot", 
+                " ", "->", " ", "C13ChemicalShiftRange2D"}], ",", " ", 
+              RowBox[{"ContourFactor", " ", "->", " ", "1.15"}], ",", " ", 
+              RowBox[{"NumContours", " ", "->", " ", "100"}], ",", " ", 
+              RowBox[{"NoiseScaleFactor", " ", "->", " ", "1.1"}], ",", " ", 
+              RowBox[{"ContourStyle", " ", "->", " ", "Black"}]}], "]"}]}], 
+        "\[IndentingNewLine]", RowBox[{"plot2DDARR20msAromaticAliphatic", 
+          " ", "=", " ", RowBox[{"NMR2DPlot", "[", 
+            RowBox[{"Abeta37ColigomerDARR20ms2D", ",", " ", 
+              RowBox[{"RegionToPlot", " ", "->", " ", 
+                "C13AromaticAlphaticChemicalShiftRange2D"}], ",", " ", 
+              RowBox[{"ContourFactor", " ", "->", " ", "1.15"}], ",", " ", 
+              RowBox[{"NumContours", " ", "->", " ", "100"}], ",", " ", 
+              RowBox[{"NoiseScaleFactor", " ", "->", " ", "1.1"}], ",", " ", 
+              RowBox[{"ContourStyle", " ", "->", " ", "Black"}]}], "]"}]}], 
+        "\[IndentingNewLine]", RowBox[{"plot2DDARR20msAliphaticAromatic", 
+          " ", "=", " ", RowBox[{"NMR2DPlot", "[", 
+            RowBox[{"Abeta37ColigomerDARR20ms2D", ",", " ", 
+              RowBox[{"RegionToPlot", " ", "->", " ", RowBox[{"(", 
+                  RowBox[{RowBox[{RowBox[{"Reverse", "[", "#", "]"}], " ", 
+                      "&"}], " ", "/@", " ", 
+                    "C13AromaticAlphaticChemicalShiftRange2D"}], ")"}]}], 
+              ",", " ", RowBox[{"ContourFactor", " ", "->", " ", "1.15"}], 
+              ",", " ", RowBox[{"NumContours", " ", "->", " ", "100"}], ",", 
+              " ", RowBox[{"NoiseScaleFactor", " ", "->", " ", "1.1"}], ",", 
+              " ", RowBox[{"ContourStyle", " ", "->", " ", "Black"}]}], 
+            "]"}]}]}], "Input", CellLabel -> "In[7]:=", 
+      ExpressionUUID -> "307a71f5-f599-44cb-a159-a3b298f6f770"], 
+     Cell[CellGroupData[{}, Open]], Cell[CellGroupData[{}, Open]], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DDARR500msFull", " ", "=", 
+         RowBox[{"NMR2DPlot", "[", RowBox[
+            {RowBox[{"Abeta37ColigomerDARR500ms2D", " ", "=", " ", RowBox[
+                {"GetBruker2D", "[", RowBox[{"wd", ",", " ", RowBox[
+                    {"{", RowBox[{"3", ",", " ", "4", ",", " ", "5"}], "}"}], 
+                   ",", " ", RowBox[{"{", RowBox[{"100", ",", " ", "100"}], 
+                     "}"}]}], "]"}]}], ",", " ", RowBox[{"RegionToPlot", " ", 
+               "->", " ", "C13ChemicalShiftRange2D"}], ",", " ", 
+             RowBox[{"ContourFactor", " ", "->", " ", "1.15"}], ",", " ", 
+             RowBox[{"NumContours", " ", "->", " ", "100"}], ",", " ", 
+             RowBox[{"NoiseScaleFactor", " ", "->", " ", "1.1"}], ",", " ", 
+             RowBox[{"ContourStyle", " ", "->", " ", "Red"}]}], "]"}]}]], 
+      "Input", CellLabel -> "In[10]:=", ExpressionUUID -> 
+       "412133c6-0daa-4b24-b5e7-e293447c3f07"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DCHHCFull", " ", "=", 
+         RowBox[{"NMR2DPlot", "[", RowBox[{RowBox[{"Abeta37ColigomerCHHC2D", 
+               " ", "=", " ", RowBox[{"GetBruker2D", "[", RowBox[{"wd", ",", 
+                   " ", RowBox[{"{", RowBox[{"6", ",", " ", "7", ",", " ", 
+                       "8"}], "}"}], ",", " ", RowBox[{"{", RowBox[{"100", 
+                       ",", " ", "100"}], "}"}]}], "]"}]}], ",", " ", 
+             RowBox[{"RegionToPlot", " ", "->", " ", 
+               "C13ChemicalShiftRange2D"}], ",", " ", 
+             RowBox[{"ContourFactor", " ", "->", " ", "1.15"}], ",", " ", 
+             RowBox[{"NumContours", " ", "->", " ", "100"}], ",", " ", 
+             RowBox[{"NoiseScaleFactor", " ", "->", " ", "1.1"}], ",", " ", 
+             RowBox[{"ContourStyle", " ", "->", " ", "Blue"}]}], "]"}]}]], 
+      "Input", CellLabel -> "In[11]:=", ExpressionUUID -> 
+       "6230608e-d7a9-4e99-b756-9c7aa8f697af"], 
+     Cell[CellGroupData[{}, Open]]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{"Show", "[", RowBox[{"plot2DDARR500msFull", ",", 
+           " ", "plot2DDARR20msFull"}], "]"}]], "Input", 
+      CellLabel -> "In[12]:=", ExpressionUUID -> 
+       "b5e6bca1-e55a-4df0-a72a-b0aff689a832"]}, Open]], 
+  Cell[CellGroupData[
+    {Cell[BoxData[RowBox[{"Show", "[", RowBox[{"plot2DDARR500msFull", ",", 
+           " ", "plot2DCHHCFull"}], "]"}]], "Input", CellLabel -> "In[13]:=", 
+      ExpressionUUID -> "936ef1b6-865e-401d-8c92-186583ac0eb1"]}, Open]]}, 
+ WindowSize -> {1141.2, 604.8}, WindowMargins -> 
+  {{0, Automatic}, {Automatic, 0}}, FrontEndVersion -> 
+  "13.1 for Microsoft Windows (64-bit) (August 22, 2022)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "fff8dc7e-f4cf-42bc-87ae-bdf60e7edd55"]

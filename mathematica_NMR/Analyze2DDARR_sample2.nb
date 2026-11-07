@@ -1,0 +1,1446 @@
+Notebook[{Cell[CellGroupData[{Cell["Simulate 2D DARR function", "Section", 
+      ExpressionUUID -> "2447cb43-9cd3-4395-a0e8-b844c9adc6d4"], 
+     Cell[CellGroupData[{Cell[TextData[StyleBox["SimulateDARR2D (v1)", 
+           "Subsection"]], "Subsection", ExpressionUUID -> 
+          "c5ab7907-f347-485e-9024-89770cdee94e"], 
+        Cell[BoxData[RowBox[{RowBox[{"Make2DDARRScatter", "[", 
+              RowBox[{"csList_", ",", RowBox[{"opts___", "?", "OptionQ"}]}], 
+              "]"}], ":=", RowBox[{"Module", "[", RowBox[{RowBox[
+                 {"{", RowBox[{"i", ",", "zb", ",", "fad", ",", "output"}], 
+                  "}"}], ",", RowBox[{RowBox[{RowBox[{"{", RowBox[{"zb", ",", 
+                        "fad"}], "}"}], "=", RowBox[{RowBox[{RowBox[{"{", 
+                          RowBox[{"ZoomBox", ",", "FlipAcrossDiagonal"}], 
+                          "}"}], "/.", "\[VeryThinSpace]", RowBox[{"{", 
+                          "opts", "}"}]}], "/.", "\[VeryThinSpace]", 
+                      RowBox[{"Options", "[", "Make2DScatter", "]"}]}]}], 
+                  ";", RowBox[{"output", "=", RowBox[{"If", "[", RowBox[
+                       {RowBox[{"BranchedSideChainQ", "[", "csList", "]"}], 
+                        ",", RowBox[{RowBox[{"(", RowBox[{RowBox[
+                          {"Make2DDARRScatter", "[", "#1", "]"}], "&"}], 
+                          ")"}], "/@", RowBox[{"UnbranchSideChain", "[", 
+                          "csList", "]"}]}], ",", RowBox[{"Partition", "[", 
+                          RowBox[{RowBox[{"Flatten", "[", RowBox[{"Table", 
+                          "[", RowBox[{RowBox[{"Append", "[", RowBox[{RowBox[
+                          {"Table", "[", RowBox[{RowBox[{"{", RowBox[{RowBox[
+                          {"-", RowBox[{"csList", "[", RowBox[{"[", RowBox[
+                          {"{", RowBox[{"i", ",", "i"}], "}"}], "]"}], 
+                          "]"}]}], ",", RowBox[{"-", RowBox[{"csList", "[", 
+                          RowBox[{"[", RowBox[{"{", RowBox[{"i", ",", "j"}], 
+                          "}"}], "]"}], "]"}]}], ",", RowBox[{"-", RowBox[
+                          {"csList", "[", RowBox[{"[", RowBox[{"{", RowBox[
+                          {"j", ",", "j"}], "}"}], "]"}], "]"}]}], ",", 
+                          RowBox[{"-", RowBox[{"csList", "[", RowBox[{"[", 
+                          RowBox[{"{", RowBox[{"i", ",", "j"}], "}"}], "]"}], 
+                          "]"}]}], ",", RowBox[{"-", RowBox[{"csList", "[", 
+                          RowBox[{"[", RowBox[{"{", RowBox[{"i", ",", "i"}], 
+                          "}"}], "]"}], "]"}]}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{"j", ",", RowBox[{"i", "+", "1"}], ",", 
+                          RowBox[{"Length", "[", "csList", "]"}]}], "}"}]}], 
+                          "]"}], ",", RowBox[{"{", RowBox[{"-", RowBox[
+                          {"csList", "[", RowBox[{"[", RowBox[{"{", RowBox[
+                          {"i", ",", RowBox[{"i", "+", "1"}]}], "}"}], "]"}], 
+                          "]"}]}], "}"}]}], "]"}], ",", RowBox[{"{", RowBox[
+                          {"i", ",", "1", ",", RowBox[{RowBox[{"Length", "[", 
+                          "csList", "]"}], "-", "1"}]}], "}"}]}], "]"}], 
+                          "]"}], ",", "2"}], "]"}]}], "]"}]}], ";", 
+                  RowBox[{"output", "=", RowBox[{"If", "[", RowBox[{"fad", 
+                        ",", RowBox[{RowBox[{"(", RowBox[{RowBox[{"Reverse", 
+                          "[", "#1", "]"}], "&"}], ")"}], "/@", "output"}], 
+                        ",", "output"}], "]"}]}], ";", RowBox[{"If", "[", 
+                    RowBox[{RowBox[{RowBox[{"Length", "[", "zb", "]"}], 
+                        "\[Equal]", "0"}], ",", "output", ",", RowBox[
+                       {"LimitCSRange", "[", RowBox[{"output", ",", "zb"}], 
+                        "]"}]}], "]"}]}]}], "]"}]}]], "Input", 
+         CellLabel -> "In[31]:=", ExpressionUUID -> 
+          "126849cb-091e-45ad-8db3-bdfbea22d8ea"], 
+        Cell[BoxData[{RowBox[{RowBox[{RowBox[{"MakeDARRScatterPlot", "[", 
+                 RowBox[{"SingleLetterAminoAcid_", ",", "MarkerStyle_", ",", 
+                   RowBox[{"opts___", "?", "OptionQ"}]}], "]"}], ":=", RowBox[
+                {"Module", "[", RowBox[{RowBox[{"{", RowBox[{"ps", ",", 
+                       "csList", ",", "ScatterList", ",", "zb", ",", " ", 
+                       "fad", ",", "csf", ",", "dl"}], "}"}], ",", "\n", 
+                   RowBox[{RowBox[{"zb", "=", RowBox[{RowBox[{"ZoomBox", 
+                          "/.", RowBox[{"{", "opts", "}"}]}], "/.", RowBox[
+                          {"Options", "[", "MakeDARRScatterPlot", "]"}]}]}], 
+                     ";", RowBox[{"csf", "=", RowBox[{RowBox[
+                          {"ChemicalShiftFunction", "/.", RowBox[{"{", 
+                          "opts", "}"}]}], "/.", RowBox[{"Options", "[", 
+                          "MakefpRFDRScatterPlot", "]"}]}]}], ";", "\n", 
+                     RowBox[{"fad", "=", RowBox[{RowBox[
+                          {"FlipAcrossDiagonal", "/.", RowBox[{"{", "opts", 
+                          "}"}]}], "/.", RowBox[{"Options", "[", 
+                          "MakeDARRScatterPlot", "]"}]}]}], ";", RowBox[
+                      {"ps", "=", RowBox[{RowBox[{"PlotStyle", "/.", RowBox[
+                          {"{", "opts", "}"}]}], "/.", RowBox[{"Options", 
+                          "[", "MakeDARRScatterPlot", "]"}]}]}], ";", 
+                     RowBox[{"dl", "=", RowBox[{RowBox[{"DrawLines", "/.", 
+                          RowBox[{"{", "opts", "}"}]}], "/.", RowBox[
+                          {"Options", "[", "MakeDARRScatterPlot", "]"}]}]}], 
+                     ";", RowBox[{"csList", "=", RowBox[{"csf", "[", 
+                         "SingleLetterAminoAcid", "]"}]}], ";", RowBox[
+                      {"ps", "=", RowBox[{"If", "[", RowBox[{RowBox[
+                          {"BranchedQ", "[", "csList", "]"}], ",", RowBox[
+                          {"{", "ps", "}"}], ",", "ps"}], "]"}]}], ";", 
+                     RowBox[{"csList", "=", RowBox[{"If", "[", RowBox[
+                          {RowBox[{"BranchedQ", "[", "csList", "]"}], ",", 
+                          RowBox[{"ConvertBranchedList", "[", "csList", 
+                          "]"}], ",", RowBox[{"{", "csList", "}"}]}], 
+                         "]"}]}], ";", RowBox[{"ScatterList", "=", RowBox[
+                        {RowBox[{"(", RowBox[{RowBox[{"Make2DDARRScatter", 
+                          "[", RowBox[{"#1", ",", RowBox[{
+                          "FlipAcrossDiagonal", "->", "fad"}], ",", " ", 
+                          RowBox[{"ZoomBox", " ", "->", " ", "zb"}]}], "]"}], 
+                          "&"}], ")"}], "/@", "csList"}]}], ";", "\n", 
+                     RowBox[{"ListPlot", "[", RowBox[{"ScatterList", ",", 
+                         RowBox[{"AspectRatio", "->", "1"}], ",", RowBox[
+                          {"PlotMarkers", "->", "MarkerStyle"}], ",", 
+                         RowBox[{"Axes", "->", "None"}], ",", RowBox[
+                          {"PlotStyle", "->", "ps"}], ",", RowBox[{"Joined", 
+                          "->", "dl"}]}], "]"}]}]}], "]"}]}], ";"}], "\n", 
+           RowBox[{RowBox[{RowBox[{"Options", "[", "MakeDARRScatterPlot", 
+                 "]"}], "=", RowBox[{"{", RowBox[{RowBox[{"PlotStyle", "->", 
+                     RowBox[{"GrayLevel", "[", "0", "]"}]}], ",", 
+                   RowBox[{"FlipAcrossDiagonal", "->", "False"}], ",", 
+                   RowBox[{"ChemicalShiftFunction", "->", 
+                     "RandomCoilCShift"}], ",", RowBox[{"DrawLines", "->", 
+                     "True"}], ",", " ", RowBox[{"ZoomBox", " ", "->", " ", 
+                     "All"}]}], "}"}]}], ";"}]}], "Input", 
+         CellLabel -> "In[32]:=", ExpressionUUID -> 
+          "dab152a1-8247-4c32-8d3b-9b9910cfae72"], 
+        Cell[BoxData[{RowBox[{RowBox[{RowBox[{"SimulateDARR2D", "[", 
+                 RowBox[{"AASequence_", ",", RowBox[{"opts___", "?", 
+                     "OptionQ"}]}], "]"}], ":=", RowBox[{"Module", "[", 
+                 RowBox[{RowBox[{"{", RowBox[{"i", ",", RowBox[{"output", 
+                         "=", RowBox[{"{", "}"}]}], ",", "m", ",", "psList", 
+                       ",", "zb", ",", "fad", ",", "csf", ",", "ps"}], "}"}], 
+                   ",", "\n", RowBox[{RowBox[{"zb", "=", RowBox[{RowBox[
+                          {"ZoomBox", "/.", RowBox[{"{", "opts", "}"}]}], 
+                         "/.", RowBox[{"Options", "[", "SimulateDARR2D", 
+                          "]"}]}]}], ";", "\n", RowBox[{"csf", "=", RowBox[
+                        {RowBox[{"ChemicalShiftFunction", "/.", RowBox[
+                          {"{", "opts", "}"}]}], "/.", RowBox[{"Options", 
+                          "[", "SimulateDARR2D", "]"}]}]}], ";", RowBox[
+                      {"fad", "=", RowBox[{RowBox[{"FlipAcrossDiagonal", 
+                          "/.", RowBox[{"{", "opts", "}"}]}], "/.", RowBox[
+                          {"Options", "[", "SimulateDARR2D", "]"}]}]}], ";", 
+                     RowBox[{"m", "=", RowBox[{RowBox[{"markers", "/.", 
+                          RowBox[{"{", "opts", "}"}]}], "/.", RowBox[
+                          {"Options", "[", "SimulateDARR2D", "]"}]}]}], ";", 
+                     RowBox[{"m", "=", RowBox[{"If", "[", RowBox[{RowBox[
+                          {"ListQ", "[", "m", "]"}], ",", "m", ",", RowBox[
+                          {"{", "m", "}"}]}], "]"}]}], ";", RowBox[{"ps", 
+                       "=", RowBox[{RowBox[{"PlotStyle", "/.", RowBox[{"{", 
+                          "opts", "}"}]}], "/.", RowBox[{"Options", "[", 
+                          "SimulateDARR2D", "]"}]}]}], ";", "\n", RowBox[
+                      {"dl", "=", RowBox[{RowBox[{"DrawLines", "/.", RowBox[
+                          {"{", "opts", "}"}]}], "/.", RowBox[{"Options", 
+                          "[", "SimulateDARR2D", "]"}]}]}], ";", "\n", 
+                     RowBox[{"psList", "=", RowBox[{"If", "[", RowBox[
+                          {RowBox[{"ListQ", "[", "ps", "]"}], ",", "ps", ",", 
+                          RowBox[{"{", "ps", "}"}]}], "]"}]}], ";", 
+                     RowBox[{"For", "[", RowBox[{RowBox[{"i", "=", "1"}], 
+                         ",", RowBox[{"i", "<=", RowBox[{"StringLength", "[", 
+                          "AASequence", "]"}]}], ",", RowBox[{"i", "=", 
+                          RowBox[{"i", "+", "1"}]}], ",", RowBox[{RowBox[
+                          {"ps", "=", RowBox[{"psList", "[", RowBox[{"[", 
+                          "1", "]"}], "]"}]}], ";", RowBox[{"psList", "=", 
+                          RowBox[{"RotateLeft", "[", "psList", "]"}]}], ";", 
+                          RowBox[{"output", "=", RowBox[{"Append", "[", 
+                          RowBox[{"output", ",", RowBox[{
+                          "MakeDARRScatterPlot", "[", RowBox[{RowBox[
+                          {"StringTake", "[", RowBox[{"AASequence", ",", 
+                          RowBox[{"{", "i", "}"}]}], "]"}], ",", RowBox[{"m", 
+                          "[", RowBox[{"[", "1", "]"}], "]"}], ",", RowBox[
+                          {"PlotStyle", "->", "ps"}], ",", RowBox[
+                          {"FlipAcrossDiagonal", "->", "fad"}], ",", RowBox[
+                          {"ChemicalShiftFunction", "->", "csf"}], ",", 
+                          RowBox[{"DrawLines", "->", "dl"}], ",", " ", RowBox[
+                          {"ZoomBox", "->", "zb"}]}], "]"}]}], "]"}]}], ";", 
+                          RowBox[{"m", "=", RowBox[{"RotateLeft", "[", "m", 
+                          "]"}]}], ";"}]}], "]"}], ";", RowBox[{"Show", "[", 
+                       RowBox[{RowBox[{"Sequence", "@@", "output"}], ",", 
+                         RowBox[{"FrameTicks", "->", "CNMRTicks2D"}], ",", 
+                         " ", RowBox[{"PlotRange", " ", "->", " ", "All"}]}], 
+                       "]"}]}]}], "]"}]}], "\n"}], "\n", 
+           RowBox[{RowBox[{RowBox[{"Options", "[", "SimulateDARR2D", "]"}], 
+               "=", RowBox[{"{", RowBox[{RowBox[{"markers", "->", RowBox[
+                      {"MarkerList", "[", "0.03", "]"}]}], ",", RowBox[
+                    {"PlotStyle", "->", "ColorList"}], ",", RowBox[
+                    {"FlipAcrossDiagonal", "->", "False"}], ",", RowBox[
+                    {"ChemicalShiftFunction", "->", "RandomCoilCShift"}], 
+                   ",", RowBox[{"DrawLines", "->", "True"}], ",", " ", 
+                   RowBox[{"ZoomBox", " ", "->", " ", "All"}]}], "}"}]}], 
+             ";"}]}], "Input", CellLabel -> "In[34]:=", 
+         ExpressionUUID -> "dc50aa0f-1c05-43d9-8070-f9d78399d751"]}, Open]]}, 
+    Closed]], Cell[CellGroupData[{Cell["Labeling scheme and details", 
+      "Section", ExpressionUUID -> "ac0d42c8-760c-4ab0-a044-a959146e5879"], 
+     Cell[BoxData[RowBox[{"(*", " ", RowBox[{"L17", ",", " ", "F20", ",", 
+           " ", "A30", ",", " ", "M35", ",", " ", "V36", ",", " ", 
+           RowBox[{"I41", " ", "-", " ", RowBox[{"uniformly", " ", "labeled", 
+               " ", "13", "C", " ", "15", "N", " ", "abeta42peptide"}]}]}], 
+         "\[IndentingNewLine]", "*)"}]], "Input", CellLabel -> "In[12]:=", 
+      ExpressionUUID -> "dcb5bd95-581f-4488-bb71-634cbef49bee"], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"L\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[13]:=", ExpressionUUID -> 
+          "2bcf35ba-1947-470d-98d0-fbae44c878f5"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"F\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[14]:=", ExpressionUUID -> 
+          "ce8a24f4-3516-4d01-8aed-30f457280107"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"A\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[15]:=", ExpressionUUID -> 
+          "b84ea1dc-e52b-462b-a8f2-20ae9066eefe"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"M\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[16]:=", ExpressionUUID -> 
+          "652fac2d-9997-4431-a262-bc1373cb858f"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"V\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[17]:=", ExpressionUUID -> 
+          "a92acc21-4ee8-4273-992c-17b181b2c328"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"TableForm", "[", 
+            RowBox[{"BetaStrandCShift", "[", "\"I\"", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[18]:=", ExpressionUUID -> 
+          "7d67c71b-73fe-4e5b-8c52-9e49b259d0f5"]}, Open]], 
+     Cell["First label was a 37C incubated oligomer ; monomers at 250uM for \
+4h, 8 runs collected and cold removed NaPI; lyophilized", "Text", 
+      ExpressionUUID -> "52c3ec7a-5689-4def-8970-25d8176c2cb0"]}, Closed]], 
+  Cell[CellGroupData[{Cell["Getting data ", "Section", 
+      ExpressionUUID -> "51c5593e-359e-4c1f-8794-a666fe2b59fa"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"GetBrukerTitles", "[", 
+              RowBox[{"wd37Clabeled1", "=", " ", RowBox[{"Dropbox", " ", 
+                  "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\
+\\\\TR-20250830-WT37COligomer\""}]}], "]"}], "\[IndentingNewLine]"}]], 
+         "Input", CellLabel -> "In[19]:=", ExpressionUUID -> 
+          "655f55cd-28b0-4ad3-ac1a-dd64842d0cc1"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"GetBrukerTitles", "[", 
+            RowBox[{"wd37Clabeled2", "=", " ", RowBox[{"Dropbox", " ", "<>", 
+                " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\\\\DD-20\
+250412-37Clabeledwater-CPMAS-Efree\""}]}], "]"}]], "Input", 
+         CellLabel -> "In[20]:=", ExpressionUUID -> 
+          "f291b834-7f03-446f-b473-ee09ce7a74c3"], 
+        Cell[CellGroupData[{}, Open]]}, Open]]}, Closed]], 
+  Cell[CellGroupData[{Cell["Plotting Full Spectrum DARR 20ms", "Section", 
+      ExpressionUUID -> "fefd8328-5aa5-4f42-9dc7-88819827580b"], 
+     Cell[BoxData[RowBox[{RowBox[{"spectrum2DDARR20ms37CL1", " ", "=", " ", 
+           RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled1", ",", " ", 
+               "2"}], "]"}]}], ";"}]], "Input", CellLabel -> "In[21]:=", 
+      ExpressionUUID -> "e03f6ee1-59ec-46f4-87df-8738d8fcac49"], 
+     Cell[BoxData[RowBox[{RowBox[{"spectrum2DDARR20ms37CL2", " ", "=", " ", 
+           RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled2", ",", " ", 
+               "6"}], "]"}]}], ";"}]], "Input", CellLabel -> "In[22]:=", 
+      ExpressionUUID -> "60661852-a7d5-4e36-ad5d-1201b1ae3b45"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"plot2DDARR20ms37CL1", " ", "=", " ", 
+              RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL1", 
+                  ",", RowBox[{"ContourStyle", "->", " ", "Red"}]}], "]"}]}], 
+            "\[IndentingNewLine]"}]], "Input", CellLabel -> "In[23]:=", 
+         ExpressionUUID -> "53cf4754-8736-406a-896f-3626b33b21a7"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DDARR20ms37CL2", "=", 
+            " ", RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", 
+                ",", RowBox[{"ContourStyle", "->", " ", "Blue"}]}], "]"}]}]], 
+         "Input", CellLabel -> "In[24]:=", ExpressionUUID -> 
+          "4c57afd1-d3c0-4a17-a724-0c15aa33d919"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DDARR20ms37CL1b", " ", 
+            "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[{
+                "spectrum2DDARR20ms37CL1", ",", RowBox[{"ContourStyle", "->", 
+                  " ", "Red"}], ",", " ", RowBox[{"NoiseScaleFactor", " ", 
+                  "->", " ", "1.5"}]}], "]"}]}]], "Input", 
+         CellLabel -> "In[36]:=", ExpressionUUID -> 
+          "44f0da1b-caa9-4c9b-81a7-50d36e1dd723"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DDARR20ms37CL2b", " ", 
+            "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[{
+                "spectrum2DDARR20ms37CL2", ",", RowBox[{"ContourStyle", "->", 
+                  " ", "Blue"}], ",", " ", RowBox[{"NoiseScaleFactor", " ", 
+                  "->", " ", "1.5"}]}], "]"}]}]], "Input", 
+         CellLabel -> "In[37]:=", ExpressionUUID -> 
+          "09b8b999-2f9a-48f9-abbd-687561a98104"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", 
+            RowBox[{"plot2DDARR20ms37CL1", ",", "plot2DDARR20ms37CL2"}], 
+            "]"}]], "Input", CellLabel -> "In[38]:=", ExpressionUUID -> 
+          "eac0775f-b70a-413f-b43a-b6c8ae79bbde"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", 
+            RowBox[{"plot2DDARR20ms37CL1b", ",", "plot2DDARR20ms37CL2b"}], 
+            "]"}]], "Input", CellLabel -> "In[39]:=", ExpressionUUID -> 
+          "94535bfd-1b41-479e-a72b-6ac88e0ebf45"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", 
+            RowBox[{"plot2DDARR20ms37CL1b", ",", "plot2DDARR20ms37CL2b", ",", 
+              " ", RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"LFAMVI\"", 
+                  ",", " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", 
+                  " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                    "BetaStrandCShift"}]}], "]"}], ",", " ", 
+              RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"LFAMVI\"", ",", 
+                  " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                  RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                  ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                    "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+         CellLabel -> "In[40]:=", ExpressionUUID -> 
+          "f5788968-7b07-4b9a-b8e8-8840d295e806"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", 
+            RowBox[{"plot2DDARR20ms37CL2b", ",", " ", RowBox[{
+                "SimulateDARR2D", "[", RowBox[{"\"LFAMVI\"", ",", " ", 
+                  RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                  RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                    "BetaStrandCShift"}]}], "]"}], ",", " ", 
+              RowBox[{"SimulateDARR2D", "[", RowBox[{"\"LFAMVI\"", ",", " ", 
+                  RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                  RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                  ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                    "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+         CellLabel -> "In[84]:=", ExpressionUUID -> 
+          "e30b0c00-1575-4c77-ba44-f9fbd1d47098"]}, Open]]}, Open]], 
+  Cell[CellGroupData[{Cell["Plotting Full Spectrum DARR 500ms", "Section", 
+      ExpressionUUID -> "4d93e38a-3b01-4242-84e5-44716650ac99"], 
+     Cell[BoxData[RowBox[{RowBox[{"spectrum2DDARR500ms37CL1", " ", "=", " ", 
+           RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled1", ",", " ", 
+               RowBox[{"{", RowBox[{"3", ",", "4", ",", "5"}], "}"}]}], 
+             "]"}]}], ";"}]], "Input", CellLabel -> "In[41]:=", 
+      ExpressionUUID -> "46fea7b6-e866-4db4-8bba-f9a7e355523f"], 
+     Cell[BoxData[RowBox[{RowBox[{"spectrum2DDARR500ms37CL2", " ", "=", " ", 
+           RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled2", ",", " ", 
+               RowBox[{"{", RowBox[{"7", ",", "10", ",", "11"}], "}"}]}], 
+             "]"}]}], ";"}]], "Input", CellLabel -> "In[43]:=", 
+      ExpressionUUID -> "a61209d0-9625-4703-a5a2-07c6e9008a15"], 
+     Cell[BoxData[RowBox[
+        {RowBox[{RowBox[{"spectrum2DDARR500ms37CL1EMProcessing", "=", " ", 
+             RowBox[{"GetBruker2D", "[", RowBox[{"wd37Clabeled1", ",", " ", 
+                 RowBox[{"{", RowBox[{"3", ",", "4", ",", "5"}], "}"}], ",", 
+                 RowBox[{"ProcessNumber", "->", " ", "2"}]}], "]"}]}], ";"}], 
+         " ", RowBox[{"(*", RowBox[{"EM50", " ", "on", " ", "both", " ", 
+             "dimensions"}], "*)"}]}]], "Input", CellLabel -> "In[44]:=", 
+      ExpressionUUID -> "1f9d037e-2aa0-412c-be0f-26b4fcc0d0fd"], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"(*", RowBox[{"plot2DDARR500ms37CL1", 
+                " ", "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                   {"spectrum2DDARR500ms37CL1", ",", RowBox[{"ContourFactor", 
+                      " ", "->", " ", "1.15"}], ",", " ", RowBox[
+                     {"NumContours", " ", "->", " ", "100"}], ",", 
+                    RowBox[{"ContourStyle", "->", " ", "Gray"}], ",", 
+                    RowBox[{"NoiseScaleFactor", "->", "1.1"}]}], "]"}]}], 
+              "*)"}], "\[IndentingNewLine]", RowBox[{"plot2DDARR500ms37CL1", 
+              " ", "=", " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                 {"spectrum2DDARR500ms37CL1", ",", RowBox[{"ContourStyle", 
+                    "->", " ", "Gray"}]}], "]"}]}]}]], "Input", 
+         CellLabel -> "In[45]:=", ExpressionUUID -> 
+          "100c8720-3c81-4281-bcd4-8162e264c44f"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"plot2DDARR500ms37CL2", "=", 
+            " ", RowBox[{"NMR2DPlot", "[", RowBox[{
+                "spectrum2DDARR500ms37CL2", ",", RowBox[{"ContourStyle", 
+                  "->", " ", "Black"}]}], "]"}]}]], "Input", 
+         CellLabel -> "In[46]:=", ExpressionUUID -> 
+          "219dc81a-e9d5-4baa-93a6-9f96adb21c1c"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{"plot2DDARR500ms37CL1EMProcessing", "=", 
+              " ", RowBox[{"NMR2DPlot", "[", RowBox[
+                 {"spectrum2DDARR500ms37CL1EMProcessing", ",", RowBox[
+                   {"ContourStyle", "->", " ", "Gray"}], ",", RowBox[
+                   {"ContourFactor", " ", "->", " ", "1.25"}], ",", " ", 
+                  RowBox[{"NumContours", " ", "->", " ", "100"}], ",", 
+                  RowBox[{"NoiseScaleFactor", "->", "1.1"}]}], "]"}]}], 
+            "\[IndentingNewLine]"}]], "Input", CellLabel -> "In[47]:=", 
+         ExpressionUUID -> "77af639d-552d-4b3a-8273-587c9ed98065"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", 
+            RowBox[{"plot2DDARR500ms37CL1", ",", "plot2DDARR500ms37CL2", " ", 
+              ",", " ", RowBox[{"SimulatefpRFDR2D", "[", RowBox[
+                 {"\"LFAMVI\"", ",", " ", RowBox[{"markers", " ", "->", " ", 
+                    "None"}], ",", " ", RowBox[{"ChemicalShiftFunction", " ", 
+                    "->", " ", "BetaStrandCShift"}]}], "]"}], ",", " ", 
+              RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"LFAMVI\"", ",", 
+                  " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                  RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                  ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                    "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+         CellLabel -> "In[49]:=", ExpressionUUID -> 
+          "faa30edc-9b2e-4157-83a3-b91dd94d5445"]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{"plot2DDARR500ms37CL2BottomLeft", "=", " ", 
+            RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", 
+                ",", " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", 
+                    RowBox[{RowBox[{"{", RowBox[{"185", ",", "185"}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"115", ",", "115"}], "}"}]}], 
+                    "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                  "1.5"}]}], "]"}]}]], "Input", CellLabel -> "In[51]:=", 
+         ExpressionUUID -> "205c6ce6-f077-48c2-9e21-5cd177253af4"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{"plot2DDARR500ms37CL2AromaticCO", "=", " ", 
+            RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", 
+                ",", " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", 
+                    RowBox[{RowBox[{"{", RowBox[{"65", ",", "185"}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"5", ",", "115"}], "}"}]}], 
+                    "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                  "1.5"}]}], "]"}]}]], "Input", CellLabel -> "In[54]:=", 
+         ExpressionUUID -> "b34fc1a3-b065-4d96-ad6c-1844a6247b8b"], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{"plot2DDARR500ms37CL2COAromatic", "=", " ", 
+            RowBox[{"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", 
+                ",", " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", 
+                    RowBox[{RowBox[{"{", RowBox[{"185", ",", "65"}], "}"}], 
+                      ",", RowBox[{"{", RowBox[{"115", ",", "5"}], "}"}]}], 
+                    "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                  "1.5"}]}], "]"}]}]], "Input", CellLabel -> "In[55]:=", 
+         ExpressionUUID -> "8106dd99-8731-444d-944d-7d91396f7262"], 
+        Cell[CellGroupData[{}, Open]]}, Open]]}, Closed]], 
+  Cell[CellGroupData[{Cell["Assignments", "Section", 
+      ExpressionUUID -> "b49baa1b-5660-4f5d-b4c7-452c9c841de4"], 
+     Cell[BoxData[{RowBox[{RowBox[{"rangeCOAromatic", " ", "=", " ", 
+            RowBox[{"{", RowBox[{"185", ",", " ", "100"}], "}"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"rangeAliph", " ", "=", " ", 
+            RowBox[{"{", RowBox[{"65", ",", " ", "5"}], "}"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"regionCOCO", " ", "=", " ", 
+            RowBox[{"Transpose", "[", RowBox[{"{", RowBox[{"rangeCOAromatic", 
+                  ",", " ", "rangeCOAromatic"}], "}"}], "]"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"regionCOAliph", " ", "=", 
+            " ", RowBox[{"Transpose", "[", RowBox[{"{", RowBox[
+                 {"rangeCOAromatic", ",", " ", "rangeAliph"}], "}"}], 
+              "]"}]}], ";"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"regionAliphCO", " ", "=", " ", 
+            RowBox[{"Transpose", "[", RowBox[{"{", RowBox[{"rangeAliph", ",", 
+                  " ", "rangeCOAromatic"}], "}"}], "]"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"regionAromaticCO", " ", "=", 
+            " ", RowBox[{"Transpose", "[", RowBox[{"{", RowBox[
+                 {"rangeCOAromatic", ",", " ", "rangeCOAromatic"}], "}"}], 
+              "]"}]}], ";"}], "\[IndentingNewLine]", 
+        RowBox[{RowBox[{"regionAliphAliph", " ", "=", " ", 
+            RowBox[{"Transpose", "[", RowBox[{"{", RowBox[{"rangeAliph", ",", 
+                  " ", "rangeAliph"}], "}"}], "]"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"regionAromaticAromatic", "=", 
+            RowBox[{"Transpose", "[", RowBox[{"{", RowBox[{"rangeCOAromatic", 
+                  ",", " ", "rangeCOAromatic"}], "}"}], "]"}]}], ";"}], 
+        "\[IndentingNewLine]", RowBox[{RowBox[{"regionTopHalf", " ", "=", 
+            RowBox[{"{", RowBox[{RowBox[{"{", RowBox[{"185", ",", "65"}], 
+                  "}"}], ",", RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+              "}"}]}], ";"}]}], "Input", CellLabel -> "In[56]:=", 
+      ExpressionUUID -> "e8aafb63-193a-47de-8987-2b231ab8ef4d"], 
+     Cell[CellGroupData[{Cell["Alanine assignments", "Subsection", 
+         ExpressionUUID -> "c052b0b1-3016-4e7d-944d-ae7657753a94"], 
+        Cell[TextData[{Cell[BoxData[TagBox[TagBox[GridBox[{{"173.6`"}, 
+                 {"48.3`"}, {"17.4`"}}, GridBoxAlignment -> {"Columns" -> 
+                   {{Left}}, "Rows" -> {{Baseline}}}, GridBoxSpacings -> 
+                 {"Columns" -> {Offset[0.27999999999999997], 
+                    {Offset[0.5599999999999999]}, Offset[
+                     0.27999999999999997]}, "Rows" -> {Offset[0.2], 
+                    {Offset[0.4]}, Offset[0.2]}}], Column], 
+              Function[BoxForm`e$, TableForm[BoxForm`e$]]]], 
+            ExpressionUUID -> "6e2e4456-b1ad-43a4-83f8-b00c3946d7ac"], 
+           "-- BetaStrand C Shift"}], "Text", ExpressionUUID -> 
+          "ee32a4a3-96b0-4733-b819-a3beea57cf39"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2b", ",", " ", RowBox[
+                  {"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[85]:=", ExpressionUUID -> 
+             "3f735b6c-db96-4e25-8b30-594071a64376"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulatefpRFDR2D", 
+                   "[", RowBox[{"\"A\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[67]:=", ExpressionUUID -> 
+             "7ad70d33-0bf7-4c91-87c7-0741c283df6d"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL1", ",", " ", RowBox[{"SimulatefpRFDR2D", 
+                   "[", RowBox[{"\"A\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[66]:=", ExpressionUUID -> 
+             "1e94555e-11d4-41b0-91b7-bfa9f634d8a0"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR20ms37CL2AromaticCO", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", 
+                   " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"65", ",", "185"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"5", ",", "115"}], "}"}]}], 
+                       "}"}]}], ",", RowBox[{"ContourStyle", "->", RowBox[
+                      {"RGBColor", "[", RowBox[{"0", ",", "0.99", ",", 
+                         "0.02"}], "]"}]}], ",", RowBox[{"NoiseScaleFactor", 
+                     "->", "1.5"}]}], "]"}]}]], "Input", CellLabel -> 
+             "In[72]:=", ExpressionUUID -> 
+             "b244be90-f9e2-4e5a-9214-38072f25a8db"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR20ms37CL2BottomLeft", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", 
+                   " ", RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", 
+                       "[", RowBox[{"0", ",", "0.99", ",", "0.02"}], "]"}]}], 
+                   ",", RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"185", ",", "185"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"115", ",", "115"}], 
+                          "}"}]}], "}"}]}], ",", RowBox[{"NoiseScaleFactor", 
+                     "->", "1.5"}]}], "]"}]}]], "Input", CellLabel -> 
+             "In[73]:=", ExpressionUUID -> 
+             "3ea513df-3993-4f7f-afbc-7bffb01ebf84"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR500ms37CL2tophalf", "=", " ", RowBox[{"NMR2DPlot", 
+                 "[", RowBox[{"spectrum2DDARR500ms37CL2", ",", " ", 
+                   RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"185", ",", "65"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+                       "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                     "1.5"}]}], " ", "]"}]}]], "Input", CellLabel -> 
+             "In[74]:=", ExpressionUUID -> 
+             "826edd64-8b31-4a5e-a074-f012e85a396d"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR20ms37CL2AliphAliph", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", 
+                   " ", RowBox[{"RegionToPlot", "->", "regionAliphAliph"}], 
+                   " ", ",", RowBox[{"ContourStyle", "->", RowBox[
+                      {"RGBColor", "[", RowBox[{"0", ",", "0.99", ",", 
+                         "0.02"}], "]"}]}], ",", RowBox[{"NoiseScaleFactor", 
+                     "->", "1.5"}]}], "]"}]}]], "Input", CellLabel -> 
+             "In[75]:=", ExpressionUUID -> 
+             "accae0e9-fa00-4c6c-91a5-7c2eadd0d8be"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR500ms37CL2AliphAliph", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR500ms37CL2", ",", 
+                   " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"65", ",", "65"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+                       "}"}]}]}], "]"}]}]], "Input", CellLabel -> "In[76]:=", 
+            ExpressionUUID -> "09766734-9e67-42ec-9ceb-90bd8cb7870d"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR20ms37CL2COAromatic", "=", " ", RowBox[
+                {"NMR2DPlot", "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", 
+                   RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", "[", 
+                       RowBox[{"0", ",", "0.99", ",", "0.02"}], "]"}]}], ",", 
+                   " ", RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"185", ",", "65"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"115", ",", "5"}], "}"}]}], 
+                       "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                     "1.5"}]}], "]"}]}]], "Input", CellLabel -> "In[77]:=", 
+            ExpressionUUID -> "0775971d-278e-47fd-a957-3ac3f7315d0c"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[
+              {"plot2DDARR20ms37CL2TopHalf", "=", " ", RowBox[{"NMR2DPlot", 
+                 "[", RowBox[{"spectrum2DDARR20ms37CL2", ",", " ", 
+                   RowBox[{"ContourStyle", "->", RowBox[{"RGBColor", "[", 
+                       RowBox[{"0", ",", "0.99", ",", "0.02"}], "]"}]}], ",", 
+                   RowBox[{"RegionToPlot", "->", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"185", ",", "65"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"5", ",", "5"}], "}"}]}], 
+                       "}"}]}], ",", RowBox[{"NoiseScaleFactor", "->", 
+                     "1.5"}]}], "]"}]}]], "Input", CellLabel -> "In[78]:=", 
+            ExpressionUUID -> "e8344b74-942b-4872-b4bf-13bf446322cf"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2TopHalf", ",", " ", RowBox[
+                  {"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulatefpRFDR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[79]:=", ExpressionUUID -> 
+             "67efe571-f239-42fd-bead-4d6ca0be2aa4"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"ACaCbFit2", " ", "=", 
+               RowBox[{"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", 
+                     "@@", "spectrum2DDARR20ms37CL2"}], ",", " ", 
+                   RowBox[{"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "53"}], 
+                          ",", RowBox[{"-", "23"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "42"}], ",", RowBox[
+                          {"-", "15"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "49.6"}], ",", 
+                          RowBox[{"-", "20.2"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.0"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[89]:=", 
+            ExpressionUUID -> "3752839b-5b27-4de5-9b71-bbd6d71c1fc3"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell["Maybe a second A CaCb?", "Text", ExpressionUUID -> 
+          "91d607f8-0776-4845-b828-f2d5bc1d5037"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"ACaCbFit2", " ", "=", 
+               RowBox[{"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", 
+                     "@@", "spectrum2DDARR20ms37CL2"}], ",", " ", 
+                   RowBox[{"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "23.5"}], 
+                          ",", RowBox[{"-", "52"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "19.5"}], ",", RowBox[
+                          {"-", "46"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "20.2"}], ",", 
+                          RowBox[{"-", "49.6"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.0"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[99]:=", 
+            ExpressionUUID -> "43276ffe-02ff-4172-a8c2-424d75eac33a"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"ACaCOFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "178"}], ",", 
+                          RowBox[{"-", "50"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "166"}], ",", RowBox[{"-", 
+                          "46"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "173"}], ",", 
+                          RowBox[{"-", "49.24"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.0"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[93]:=", 
+            ExpressionUUID -> "e498dbcd-3a6f-45af-ba97-c04d8162f0d0"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[{RowBox[{RowBox[
+                 {"FinalChemicalShiftsA", "[", "r_", "]"}], " ", ":=", " ", 
+                RowBox[{"Which", "[", " ", RowBox[{RowBox[{"r", " ", 
+                      "\[Equal]", " ", "\"A\""}], ",", " ", RowBox[
+                     {"{", RowBox[{"173.562`", ",", "49.2157`", ",", 
+                        "20.5707`"}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", RowBox[{"Show", "[", RowBox[
+                 {"plot2DDARR20ms37CL2", ",", RowBox[{"SimulateDARR2D", "[", 
+                    RowBox[{"\"A\"", ",", " ", RowBox[{"markers", " ", "->", 
+                        " ", "None"}], ",", " ", RowBox[
+                       {"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsA"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Black"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"A\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsA"}], ",", RowBox[
+                       {"PlotStyle", "->", "Black"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[100]:=", ExpressionUUID -> 
+             "e6f483ff-50df-4af5-afce-abc64dcf178f"]}, Open]]}, Closed]], 
+     Cell[CellGroupData[{Cell["Valine assignments", "Subsection", 
+         ExpressionUUID -> "76854c4f-b733-4dfb-80b1-6bbcfed6ef09"], 
+        Cell[TextData[Cell[BoxData[InterpretationBox[GridBox[{{"172.1`"}, {
+                "58.`"}, {"31.2`"}, {"19.4`"}, {"18.6`"}}, 
+              GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> 
+                 {{Baseline}}}, GridBoxSpacings -> {"Columns" -> 
+                 {Offset[0.27999999999999997], {Offset[2.0999999999999996]}, 
+                  Offset[0.27999999999999997]}, "Rows" -> {Offset[0.2], 
+                  {Offset[0.4]}, Offset[0.2]}}], TableForm[{172.1, 58., 31.2, 
+               {19.4}, {18.6}}]]], ExpressionUUID -> 
+            "567c9bca-78ac-4242-99c7-4e1f5e4a2c69"]], "Text", 
+         ExpressionUUID -> "abe774b9-84ba-4e26-8fad-e876367c3415"], 
+        Cell[BoxData[""], "Input", CellLabel -> "In[179]:=", 
+         ExpressionUUID -> "9a52c748-2552-48cb-91ea-02353e13d9ac"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulateDARR2D", 
+                   "[", RowBox[{"\"V\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}], ",", " ", RowBox[{"PlotStyle", 
+                       "->", " ", "LightPink"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulateDARR2D", "[", RowBox[{"\"V\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                       "->", " ", "LightPink"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[102]:=", ExpressionUUID -> 
+             "32c7a4f0-3e5c-40a3-9c1c-62d6505a6c6d"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"\[IndentingNewLine]", 
+               RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", 
+                   ",", RowBox[{"SimulateDARR2D", "[", RowBox[{"\"V\"", ",", 
+                       " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", 
+                       " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                         "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                         "->", "Pink"}]}], "]"}], ",", " ", RowBox[
+                    {"SimulateDARR2D", "[", RowBox[{"\"V\"", ",", " ", 
+                       RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                       RowBox[{"FlipAcrossDiagonal", " ", "->", " ", 
+                         "True"}], ",", " ", RowBox[{"ChemicalShiftFunction", 
+                         " ", "->", " ", "BetaStrandCShift"}], ",", RowBox[
+                        {"PlotStyle", "->", "Pink"}]}], "]"}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[103]:=", ExpressionUUID -> 
+             "d3330673-b391-4ca8-99bc-39f813e0247b"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"VCaCbFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "62"}], ",", 
+                          RowBox[{"-", "36"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "54"}], ",", RowBox[{"-", 
+                          "30"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "56.67"}], ",", 
+                          RowBox[{"-", "33.2"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.5"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[104]:=", 
+            ExpressionUUID -> "8d6680dc-6961-4327-8c81-d17d6ffbe905"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"VCmFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "36"}], ",", 
+                          RowBox[{"-", "23"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "29"}], ",", RowBox[{"-", 
+                          "16.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "32"}], 
+                          ",", RowBox[{"-", "19"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "31"}], ",", RowBox[
+                          {"-", "18"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.0"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.0"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1.5"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[105]:=", 
+            ExpressionUUID -> "1106c3cd-842c-48c1-a816-f065550d1a3c"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"VCoFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "175"}], ",", 
+                          RowBox[{"-", "35"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "169"}], ",", RowBox[{"-", 
+                          "27"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "172"}], 
+                          ",", RowBox[{"-", "33.5055"}]}], "}"}], ",", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", "172"}], ",", 
+                          RowBox[{"-", "30.5055"}]}], "}"}]}], "}"}]}]}], 
+                   ",", " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", 
+                       RowBox[{RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], 
+                       "}"}]}], ",", "  ", RowBox[{"hg", " ", "=", " ", 
+                     RowBox[{"(", RowBox[{RowBox[{"{", RowBox[{"1", ",", 
+                          "1"}], "}"}], " ", SuperscriptBox["10", "8"]}], 
+                       ")"}]}], ",", RowBox[{"DARRnoise", " ", "=", " ", 
+                     "2000000"}], ",", " ", "1.3", ",", " ", "15"}], 
+                 "]"}]}]], "Input", CellLabel -> "In[106]:=", 
+            ExpressionUUID -> "f5a5dee0-8d74-468d-b0d7-70f113cc31a0"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"VCOCaFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "175"}], ",", 
+                          RowBox[{"-", "63"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "169"}], ",", RowBox[{"-", 
+                          "55"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "172"}], ",", 
+                          RowBox[{"-", "57"}]}], "}"}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.5"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[108]:=", 
+            ExpressionUUID -> "5e70992c-37c8-4a53-bcaa-668d62ce6e73"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[{RowBox[{RowBox[
+                 {"FinalChemicalShiftsV", "[", "r_", "]"}], " ", ":=", " ", 
+                RowBox[{"Which", "[", " ", RowBox[{RowBox[{"r", " ", 
+                      "\[Equal]", " ", "\"V\""}], ",", " ", RowBox[
+                     {"{", RowBox[{"172.048`", ",", "57.8631`", ",", 
+                        "33.8169`", ",", "19.3855`", ",", "18.8469`"}], 
+                      "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+              RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2", ",", 
+                  RowBox[{"SimulateDARR2D", "[", RowBox[{"\"V\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsV"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Pink"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"V\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsV"}], ",", RowBox[
+                       {"PlotStyle", "->", "Pink"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[111]:=", ExpressionUUID -> 
+             "78022cb3-ba48-4fe8-a58f-ff2c36f9f2b9"]}, Open]]}, Closed]], 
+     Cell[CellGroupData[{Cell["Phenylalanine assignments", "Subsection", 
+         ExpressionUUID -> "eb88bfd8-d378-4aae-9593-a903ee934c0f"], 
+        Cell[TextData[Cell[BoxData[InterpretationBox[GridBox[
+              {{"171.6`", "\"\"", "\"\""}, {"53.5`", "\"\"", "\"\""}, {
+                "37.9`", "\"\"", "\"\""}, {"137.2`", "\"\"", "\"\""}, {
+                "130.2`", "129.8`", "\"\""}, {"130.2`", "129.8`", "128.2`"}}, 
+              GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> 
+                 {{Baseline}}}, GridBoxSpacings -> {"Columns" -> 
+                 {Offset[0.27999999999999997], {Offset[2.0999999999999996]}, 
+                  Offset[0.27999999999999997]}, "Rows" -> {Offset[0.2], 
+                  {Offset[0.4]}, Offset[0.2]}}], TableForm[{171.6, 53.5, 
+               37.9, 137.2, {130.2, 129.8}, {130.2, 129.8, 128.2}}]]], 
+           ExpressionUUID -> "1184ed2d-d8fa-460d-bb75-571619ce07fc"]], 
+         "Text", ExpressionUUID -> "3f69e1ee-3e3a-47f6-804d-2e1b54fa2480"], 
+        Cell[BoxData[""], "Input", CellLabel -> "In[189]:=", 
+         ExpressionUUID -> "1e28e636-0e5e-4b32-80dc-e4d405e275a4"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulateDARR2D", 
+                   "[", RowBox[{"\"F\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}], ",", " ", RowBox[{"PlotStyle", 
+                       "->", " ", "Green"}]}], "]"}], ",", " ", 
+                 RowBox[{"SimulateDARR2D", "[", RowBox[{"\"F\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                       "->", " ", "Green"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[113]:=", ExpressionUUID -> 
+             "03e9db35-cdeb-4342-8406-a52145d62514"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"\[IndentingNewLine]", 
+               RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", 
+                   ",", RowBox[{"SimulateDARR2D", "[", RowBox[{"\"F\"", ",", 
+                       " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", 
+                       " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                         "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                         "->", "Green"}]}], "]"}], ",", " ", RowBox[
+                    {"SimulateDARR2D", "[", RowBox[{"\"F\"", ",", " ", 
+                       RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                       RowBox[{"FlipAcrossDiagonal", " ", "->", " ", 
+                         "True"}], ",", " ", RowBox[{"ChemicalShiftFunction", 
+                         " ", "->", " ", "BetaStrandCShift"}], ",", RowBox[
+                        {"PlotStyle", "->", "Green"}]}], "]"}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[114]:=", ExpressionUUID -> 
+             "34c1bb41-879a-49d5-9b8a-2bba6ba45cc6"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"FCaCbFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "47"}], ",", 
+                          RowBox[{"-", "56"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "38.1"}], ",", RowBox[{"-", 
+                          "50"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "41"}], 
+                          ",", RowBox[{"-", "52"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "43.6"}], ",", RowBox[
+                          {"-", "52"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[115]:=", 
+            ExpressionUUID -> "28e2ce82-2744-4476-821c-dd5349445bd5"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], Cell[BoxData[""], "Input", 
+         CellLabel -> "In[193]:=", ExpressionUUID -> 
+          "3e82b447-6b3b-4c16-a2cb-48d5e9109322"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"FCaroFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "132"}], ",", 
+                          RowBox[{"-", "56"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "127.1"}], ",", RowBox[{"-", 
+                          "50"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "129"}], ",", 
+                          RowBox[{"-", "53"}]}], "}"}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.5"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[119]:=", 
+            ExpressionUUID -> "498a947d-d008-4023-b081-50350d3b563b"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"FCaroFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "134"}], ",", 
+                          RowBox[{"-", "43"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "127.1"}], ",", RowBox[{"-", 
+                          "37"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "129"}], 
+                          ",", RowBox[{"-", "40"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "130"}], ",", RowBox[
+                          {"-", "40.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[121]:=", 
+            ExpressionUUID -> "f506f232-1e4a-4cb6-9fb4-7da5f463c75e"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"FCoFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL1"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "173"}], ",", 
+                          RowBox[{"-", "42"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "39"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "172"}], ",", 
+                          RowBox[{"-", "41"}]}], "}"}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1.5", ",", "1.5"}], "}"}], "}"}]}], 
+                   ",", "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", 
+                       RowBox[{RowBox[{"{", "1.5", "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[129]:=", 
+            ExpressionUUID -> "904e74fe-cbc7-4b53-b351-c1ece681cb99"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"FCoFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "173"}], ",", 
+                          RowBox[{"-", "42"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "38"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "172"}], 
+                          ",", RowBox[{"-", "41"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "170.5"}], ",", RowBox[
+                          {"-", "40.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], 
+                       "}"}]}], ",", "  ", RowBox[{"hg", " ", "=", " ", 
+                     RowBox[{"(", RowBox[{RowBox[{"{", RowBox[{"1.5", ",", 
+                          "1"}], "}"}], " ", SuperscriptBox["10", "8"]}], 
+                       ")"}]}], ",", RowBox[{"DARRnoise", " ", "=", " ", 
+                     "2000000"}], ",", " ", "1.3", ",", " ", "15"}], 
+                 "]"}]}]], "Input", CellLabel -> "In[131]:=", 
+            ExpressionUUID -> "88efc453-a810-4ca0-b130-b57e5f60abbc"], 
+           Cell[CellGroupData[{}, Open]], Cell[CellGroupData[{}, Open]]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[{RowBox[{RowBox[{"FinalChemicalShiftsF", "[", "r_", 
+                  "]"}], " ", ":=", " ", RowBox[{"Which", "[", " ", 
+                  RowBox[{RowBox[{"r", " ", "\[Equal]", " ", "\"F\""}], ",", 
+                    " ", RowBox[{"{", RowBox[{"170.142`", ",", "53.1141`", 
+                        ",", "40.4993`", ",", "128.937`"}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", RowBox[{"Show", "[", RowBox[
+                 {"plot2DDARR20ms37CL2TopHalf", ",", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"F\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsF"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Green"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"F\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsF"}], ",", RowBox[
+                       {"PlotStyle", "->", "Green"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[134]:=", ExpressionUUID -> 
+             "163eaac2-e4a2-4514-aabd-fe182c08aaee"]}, Open]]}, Closed]], 
+     Cell[CellGroupData[{Cell["Methionine assignments", "Subsection", 
+         ExpressionUUID -> "02080f7f-f801-43fb-9c14-0ed2c7ad8ac9"], 
+        Cell[TextData[Cell[BoxData[TagBox[TagBox[GridBox[{{"172.1`"}, 
+                {"51.2`"}, {"31.2`"}, {"30.3`"}, {"15.2`"}}, 
+               GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> 
+                  {{Baseline}}}, GridBoxSpacings -> {"Columns" -> 
+                  {Offset[0.27999999999999997], {Offset[0.5599999999999999]}, 
+                   Offset[0.27999999999999997]}, "Rows" -> {Offset[0.2], 
+                   {Offset[0.4]}, Offset[0.2]}}], Column], 
+             Function[BoxForm`e$, TableForm[BoxForm`e$]]]], 
+           ExpressionUUID -> "abbc7f9b-1242-4655-a967-0f9f22256d34"]], 
+         "Text", ExpressionUUID -> "2d48df96-03b6-4de9-91a1-e79480238ad0"], 
+        Cell[BoxData[""], "Input", CellLabel -> "In[198]:=", 
+         ExpressionUUID -> "cffdc867-58cb-4f57-9eb8-338febc7675c"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulateDARR2D", 
+                   "[", RowBox[{"\"M\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}], ",", " ", RowBox[{"PlotStyle", 
+                       "->", "Blue"}]}], "]"}], ",", " ", RowBox[
+                  {"SimulateDARR2D", "[", RowBox[{"\"M\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                       "->", " ", "Blue"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[136]:=", ExpressionUUID -> 
+             "d0d89c39-4faa-463b-9ce4-49837615dd37"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"\[IndentingNewLine]", 
+               RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", 
+                   ",", RowBox[{"SimulateDARR2D", "[", RowBox[{"\"M\"", ",", 
+                       " ", RowBox[{"markers", " ", "->", " ", "None"}], ",", 
+                       " ", RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                         "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                         "->", "Blue"}]}], "]"}], ",", " ", RowBox[
+                    {"SimulateDARR2D", "[", RowBox[{"\"M\"", ",", " ", 
+                       RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                       RowBox[{"FlipAcrossDiagonal", " ", "->", " ", 
+                         "True"}], ",", " ", RowBox[{"ChemicalShiftFunction", 
+                         " ", "->", " ", "BetaStrandCShift"}], ",", RowBox[
+                        {"PlotStyle", "->", "Blue"}]}], "]"}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[137]:=", ExpressionUUID -> 
+             "70a7ccab-29d9-4110-8cac-1a71e96e309b"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"MCaCbFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "54"}], ",", 
+                          RowBox[{"-", "37"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "48"}], ",", RowBox[{"-", 
+                          "28"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "51"}], 
+                          ",", RowBox[{"-", "31"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "51"}], ",", RowBox[
+                          {"-", "35"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[138]:=", 
+            ExpressionUUID -> "45a26b5d-7f80-47df-96c8-ecc5418dd198"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"MCOFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "176"}], ",", 
+                          RowBox[{"-", "34.8"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "27"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "171.5"}], 
+                          ",", RowBox[{"-", "30.5"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "171.5"}], ",", RowBox[
+                          {"-", "33.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], 
+                       "}"}]}], ",", "  ", RowBox[{"hg", " ", "=", " ", 
+                     RowBox[{"(", RowBox[{RowBox[{"{", RowBox[{"1", ",", 
+                          "1"}], "}"}], " ", SuperscriptBox["10", "8"]}], 
+                       ")"}]}], ",", RowBox[{"DARRnoise", " ", "=", " ", 
+                     "2000000"}], ",", " ", "1.3", ",", " ", "15"}], 
+                 "]"}]}]], "Input", CellLabel -> "In[141]:=", 
+            ExpressionUUID -> "5403fcb1-f90a-4f06-9696-c90c9003c1a1"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"MCoCdFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "176"}], ",", 
+                          RowBox[{"-", "17"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168.2"}], ",", RowBox[{"-", 
+                          "13"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "172"}], 
+                          ",", RowBox[{"-", "15"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "171"}], ",", RowBox[
+                          {"-", "15.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[155]:=", 
+            ExpressionUUID -> "d2dcb18d-cf51-462f-a848-35b9101e4048"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[BoxData[RowBox[{" ", RowBox[{"(*", RowBox[{"Isoluecine", " ", 
+                "assigments", " ", "are", " ", "also", " ", "completed", " ", 
+                "here"}], "*)"}]}]], "Input", ExpressionUUID -> 
+          "c0232212-68a4-4df9-83e8-c993b6bc503c"], 
+        Cell[CellGroupData[{Cell[BoxData[{RowBox[{RowBox[
+                 {"FinalChemicalShiftsM", "[", "r_", "]"}], " ", ":=", " ", 
+                RowBox[{"Which", "[", " ", RowBox[{RowBox[{"r", " ", 
+                      "\[Equal]", " ", "\"M\""}], ",", " ", RowBox[
+                     {"{", RowBox[{"170.308`", ",", "52.2334`", ",", 
+                        "33.9168`", ",", "30.2027`", ",", "15.7986`"}], 
+                      "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+              RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", ",", 
+                  RowBox[{"SimulateDARR2D", "[", RowBox[{"\"M\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsM"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Blue"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"M\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsM"}], ",", RowBox[
+                       {"PlotStyle", "->", "Blue"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[156]:=", ExpressionUUID -> 
+             "036e379e-d3fc-4f81-ac26-49faec54179e"]}, Open]]}, Closed]], 
+     Cell[CellGroupData[{Cell["Leucine assignments", "Subsection", 
+         ExpressionUUID -> "120d7f76-7f45-4ef7-a247-6edfbb3097c7"], 
+        Cell[TextData[Cell[BoxData[InterpretationBox[GridBox[{{"173.4`"}, {
+                "50.9`"}, {"40.7`"}, {"25.2`"}, {"23.2`"}, {"21.6`"}}, 
+              GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> 
+                 {{Baseline}}}, GridBoxSpacings -> {"Columns" -> 
+                 {Offset[0.27999999999999997], {Offset[2.0999999999999996]}, 
+                  Offset[0.27999999999999997]}, "Rows" -> {Offset[0.2], 
+                  {Offset[0.4]}, Offset[0.2]}}], TableForm[{173.4, 50.9, 
+               40.7, 25.2, {23.2}, {21.6}}]]], ExpressionUUID -> 
+            "972ac00e-5be8-4160-a55c-46d930bd50d1"]], "Text", 
+         ExpressionUUID -> "432e8606-871d-466c-b8e5-de4c50b2c837"], 
+        Cell[BoxData[""], "Input", CellLabel -> "In[207]:=", 
+         ExpressionUUID -> "3a3fba8f-e9ab-485a-a797-a761fbc2a51c"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulateDARR2D", 
+                   "[", RowBox[{"\"L\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}], ",", " ", RowBox[{"PlotStyle", 
+                       "->", "Purple"}]}], "]"}], ",", " ", RowBox[
+                  {"SimulateDARR2D", "[", RowBox[{"\"L\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                       "->", " ", "Purple"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[158]:=", ExpressionUUID -> 
+             "8f700d80-f65c-4ebe-843b-31596a238430"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"\[IndentingNewLine]", 
+               RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", 
+                   ",", " ", RowBox[{"SimulateDARR2D", "[", RowBox[{"\"L\"", 
+                       ",", " ", RowBox[{"markers", " ", "->", " ", "None"}], 
+                       ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                         " ", "BetaStrandCShift"}], ",", " ", RowBox[
+                        {"PlotStyle", "->", "Purple"}]}], "]"}], ",", " ", 
+                   RowBox[{"SimulateDARR2D", "[", RowBox[{"\"L\"", ",", " ", 
+                       RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                       RowBox[{"FlipAcrossDiagonal", " ", "->", " ", 
+                         "True"}], ",", " ", RowBox[{"ChemicalShiftFunction", 
+                         " ", "->", " ", "BetaStrandCShift"}], ",", RowBox[
+                        {"PlotStyle", "->", " ", "Purple"}]}], "]"}]}], 
+                 "]"}]}]], "Input", CellLabel -> "In[159]:=", 
+            ExpressionUUID -> "f1c2dfb1-87bc-4ee0-b712-c331b0df8953"]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"LCaCbFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "56"}], ",", 
+                          RowBox[{"-", "37"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "47"}], ",", RowBox[{"-", 
+                          "46"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "51.5"}], 
+                          ",", RowBox[{"-", "43.5"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "53"}], ",", RowBox[
+                          {"-", "41"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1.5"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[162]:=", 
+            ExpressionUUID -> "a79cdfe1-3596-490e-81e6-9f97ed165e69"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"LCOFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "176"}], ",", 
+                          RowBox[{"-", "28"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "23"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "173.5"}], ",", 
+                          RowBox[{"-", "25.5"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1", ",", "1"}], "}"}], "}"}]}], ",", 
+                   "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", RowBox[
+                        {RowBox[{"{", "1", "}"}], " ", SuperscriptBox["10", 
+                          "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", " ", 
+                     "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[163]:=", 
+            ExpressionUUID -> "65775036-424c-47cc-8ec8-d2f46940d7c8"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"LCmFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "28"}], ",", 
+                          RowBox[{"-", "53.6"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "22.2"}], ",", RowBox[{"-", 
+                          "50.2"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "25.33"}], 
+                          ",", RowBox[{"-", "52"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "22.2"}], ",", RowBox[
+                          {"-", "52"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], 
+                       "}"}]}], ",", "  ", RowBox[{"hg", " ", "=", " ", 
+                     RowBox[{"(", RowBox[{RowBox[{"{", RowBox[{"1", ",", 
+                          "1"}], "}"}], " ", SuperscriptBox["10", "8"]}], 
+                       ")"}]}], ",", RowBox[{"DARRnoise", " ", "=", " ", 
+                     "2000000"}], ",", " ", "1.3", ",", " ", "15"}], 
+                 "]"}]}]], "Input", CellLabel -> "In[177]:=", 
+            ExpressionUUID -> "5ca98112-f4e1-4f55-8fea-3e652504d63d"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[{RowBox[{RowBox[
+                 {"FinalChemicalShiftsL", "[", "r_", "]"}], " ", ":=", " ", 
+                RowBox[{"Which", "[", " ", RowBox[{RowBox[{"r", " ", 
+                      "\[Equal]", " ", "\"L\""}], ",", " ", RowBox[
+                     {"{", RowBox[{"172.405`", ",", "52.0498`", ",", 
+                        "43.9572`", ",", "25.4209`", ",", "22.2947`"}], 
+                      "}"}]}], "]"}]}], "\[IndentingNewLine]", 
+              RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", ",", 
+                  RowBox[{"SimulateDARR2D", "[", RowBox[{"\"L\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsL"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Purple"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"L\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsL"}], ",", RowBox[
+                       {"PlotStyle", "->", "Purple"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[178]:=", ExpressionUUID -> 
+             "01d52c93-3c8a-4b48-84e9-b5261c0ee4be"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"LCOFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "176"}], ",", 
+                          RowBox[{"-", "28"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "23"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "173.5"}], ",", 
+                          RowBox[{"-", "25.5"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1", ",", "1"}], "}"}], "}"}]}], ",", 
+                   "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", RowBox[
+                        {RowBox[{"{", "1", "}"}], " ", SuperscriptBox["10", 
+                          "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", " ", 
+                     "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[180]:=", 
+            ExpressionUUID -> "e461fff9-7e01-4045-8cae-d0a900aca9d3"], 
+           Cell[CellGroupData[{}, Open]]}, Open]]}, Closed]], 
+     Cell[CellGroupData[{Cell["Isoleucine assignments", "Subsection", 
+         ExpressionUUID -> "9fa1492b-4718-42f8-8d65-b5910a1c30f7"], 
+        Cell[TextData[Cell[BoxData[InterpretationBox[GridBox[
+              {{"172.2`", "\"\""}, {"56.9`", "\"\""}, {"37.1`", "\"\""}, {
+                "15.7`", "\"\""}, {"25.5`", "11.2`"}}, GridBoxAlignment -> {
+                "Columns" -> {{Left}}, "Rows" -> {{Baseline}}}, 
+              GridBoxSpacings -> {"Columns" -> {Offset[0.27999999999999997], 
+                  {Offset[2.0999999999999996]}, Offset[0.27999999999999997]}, 
+                "Rows" -> {Offset[0.2], {Offset[0.4]}, Offset[0.2]}}], 
+             TableForm[{172.2, 56.9, 37.1, {15.7}, {25.5, 11.2}}]]], 
+           ExpressionUUID -> "5e1fdfc9-b445-48a3-a9e3-a528f699e911"]], 
+         "Text", ExpressionUUID -> "81f66ded-6b8b-457f-a6a3-45aebc0d2432"], 
+        Cell[BoxData[""], "Input", CellLabel -> "In[216]:=", 
+         ExpressionUUID -> "8014b1bc-b38a-4a07-858c-8ac79dac4738"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"plot2DDARR20ms37CL2", ",", " ", RowBox[{"SimulateDARR2D", 
+                   "[", RowBox[{"\"I\"", ",", " ", RowBox[{"markers", " ", 
+                       "->", " ", "None"}], ",", " ", RowBox[
+                      {"ChemicalShiftFunction", " ", "->", " ", 
+                       "BetaStrandCShift"}], ",", " ", RowBox[{"PlotStyle", 
+                       "->", "Black"}]}], "]"}], ",", " ", RowBox[
+                  {"SimulateDARR2D", "[", RowBox[{"\"I\"", ",", " ", 
+                     RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                     RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                     ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                       " ", "BetaStrandCShift"}], ",", RowBox[{"PlotStyle", 
+                       "->", " ", "Black"}]}], "]"}]}], "]"}]], "Input", 
+            CellLabel -> "In[181]:=", ExpressionUUID -> 
+             "6cdef9c4-7008-48a4-8301-faa1984a7d8a"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"\[IndentingNewLine]", 
+               RowBox[{"Show", "[", RowBox[{"plot2DDARR20ms37CL2TopHalf", 
+                   ",", " ", RowBox[{"SimulateDARR2D", "[", RowBox[{"\"I\"", 
+                       ",", " ", RowBox[{"markers", " ", "->", " ", "None"}], 
+                       ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                         " ", "BetaStrandCShift"}], ",", " ", RowBox[
+                        {"PlotStyle", "->", "Black"}]}], "]"}], ",", " ", 
+                   RowBox[{"SimulateDARR2D", "[", RowBox[{"\"I\"", ",", " ", 
+                       RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                       RowBox[{"FlipAcrossDiagonal", " ", "->", " ", 
+                         "True"}], ",", " ", RowBox[{"ChemicalShiftFunction", 
+                         " ", "->", " ", "BetaStrandCShift"}], ",", RowBox[
+                        {"PlotStyle", "->", " ", "Black"}]}], "]"}]}], 
+                 "]"}]}]], "Input", CellLabel -> "In[182]:=", 
+            ExpressionUUID -> "9f061f30-2bff-413e-8605-e74c381009f1"]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"ICaCbFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "62"}], ",", 
+                          RowBox[{"-", "41.5"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "56"}], ",", RowBox[{"-", 
+                          "35.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "57"}], 
+                          ",", RowBox[{"-", "38"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "58"}], ",", RowBox[
+                          {"-", "37"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], "}"}], 
+                         ",", RowBox[{"{", RowBox[{"1.5", ",", "1.5"}], 
+                          "}"}]}], "}"}]}], ",", "  ", RowBox[{"hg", " ", 
+                     "=", " ", RowBox[{"(", RowBox[{RowBox[{"{", RowBox[
+                          {"1.5", ",", "1.5"}], "}"}], " ", SuperscriptBox[
+                          "10", "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", 
+                     " ", "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[187]:=", 
+            ExpressionUUID -> "88b4b118-29ee-4758-8b5e-decebbb88a78"], 
+           Cell[CellGroupData[{}, Open]], Cell[CellGroupData[{}, Open]]}, 
+          Open]], Cell[CellGroupData[
+          {Cell[BoxData[RowBox[{"ICOFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "175"}], ",", 
+                          RowBox[{"-", "62"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "168"}], ",", RowBox[{"-", 
+                          "55"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "172.5"}], ",", 
+                          RowBox[{"-", "58"}]}], "}"}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1", ",", "1"}], "}"}], "}"}]}], ",", 
+                   "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", RowBox[
+                        {RowBox[{"{", "1", "}"}], " ", SuperscriptBox["10", 
+                          "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", " ", 
+                     "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[188]:=", 
+            ExpressionUUID -> "1a4abed8-c99e-4a0a-af1e-ce10b185878b"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"ICgCdCeFit", " ", "=", 
+               RowBox[{"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", 
+                     "@@", "spectrum2DDARR20ms37CL2"}], ",", " ", 
+                   RowBox[{"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "29"}], 
+                          ",", RowBox[{"-", "20"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "22"}], ",", RowBox[
+                          {"-", "8"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{RowBox[{"{", RowBox[{RowBox[{"-", "25.5"}], 
+                          ",", RowBox[{"-", "11"}]}], "}"}], ",", RowBox[
+                          {"{", RowBox[{RowBox[{"-", "25.5"}], ",", RowBox[
+                          {"-", "16"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}], ",", 
+                         RowBox[{"{", RowBox[{"1", ",", "1"}], "}"}]}], 
+                       "}"}]}], ",", "  ", RowBox[{"hg", " ", "=", " ", 
+                     RowBox[{"(", RowBox[{RowBox[{"{", RowBox[{"1", ",", 
+                          "1"}], "}"}], " ", SuperscriptBox["10", "8"]}], 
+                       ")"}]}], ",", RowBox[{"DARRnoise", " ", "=", " ", 
+                     "2000000"}], ",", " ", "1.3", ",", " ", "15"}], 
+                 "]"}]}]], "Input", CellLabel -> "In[191]:=", 
+            ExpressionUUID -> "36e2c8c3-6bfc-4823-a11d-febc912aa633"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"ICgFit", " ", "=", RowBox[
+                {"GaussianPeakFit2D", "[", RowBox[{RowBox[{"Sequence", "@@", 
+                     "spectrum2DDARR20ms37CL2"}], ",", " ", RowBox[
+                    {"zb", " ", "=", " ", RowBox[{"-", RowBox[{"{", RowBox[
+                          {RowBox[{"{", RowBox[{RowBox[{"-", "42"}], ",", 
+                          RowBox[{"-", "17.7"}]}], "}"}], ",", RowBox[{"{", 
+                          RowBox[{RowBox[{"-", "34"}], ",", RowBox[{"-", 
+                          "13.5"}]}], "}"}]}], "}"}]}]}], ",", " ", 
+                   RowBox[{"cg", " ", "=", " ", RowBox[{"-", RowBox[{"{", 
+                         RowBox[{"{", RowBox[{RowBox[{"-", "37"}], ",", 
+                          RowBox[{"-", "15.78"}]}], "}"}], "}"}]}]}], ",", 
+                   " ", RowBox[{"lwg", " ", "=", " ", RowBox[{"{", RowBox[
+                        {"{", RowBox[{"1", ",", "1"}], "}"}], "}"}]}], ",", 
+                   "  ", RowBox[{"hg", " ", "=", " ", RowBox[{"(", RowBox[
+                        {RowBox[{"{", "1", "}"}], " ", SuperscriptBox["10", 
+                          "8"]}], ")"}]}], ",", RowBox[{"DARRnoise", " ", 
+                     "=", " ", "2000000"}], ",", " ", "1.3", ",", " ", 
+                   "15"}], "]"}]}]], "Input", CellLabel -> "In[192]:=", 
+            ExpressionUUID -> "daeb955e-3d50-43cc-a443-395b5e0cd895"], 
+           Cell[CellGroupData[{}, Open]]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[{RowBox[{RowBox[
+                 {"FinalChemicalShiftsI", "[", "r_", "]"}], " ", ":=", " ", 
+                RowBox[{"Which", "[", " ", RowBox[{RowBox[{"r", " ", 
+                      "\[Equal]", " ", "\"I\""}], ",", " ", RowBox[
+                     {"{", RowBox[{"172.112`", ",", "57.8431`", ",", 
+                        "37.8453`", ",", "25.7454`", ",", "15.7497`", ",", 
+                        "12.0198`"}], "}"}]}], "]"}]}], 
+              "\[IndentingNewLine]", RowBox[{"Show", "[", RowBox[
+                 {"plot2DDARR20ms37CL2TopHalf", ",", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"I\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"ChemicalShiftFunction", " ", "->", " ", 
+                        "FinalChemicalShiftsI"}], ",", RowBox[{"PlotStyle", 
+                        "->", "Black"}]}], "]"}], ",", " ", RowBox[
+                   {"SimulateDARR2D", "[", RowBox[{"\"I\"", ",", " ", 
+                      RowBox[{"markers", " ", "->", " ", "None"}], ",", " ", 
+                      RowBox[{"FlipAcrossDiagonal", " ", "->", " ", "True"}], 
+                      ",", " ", RowBox[{"ChemicalShiftFunction", " ", "->", 
+                        " ", "FinalChemicalShiftsI"}], ",", RowBox[
+                       {"PlotStyle", "->", "Black"}]}], "]"}]}], "]"}]}], 
+            "Input", CellLabel -> "In[195]:=", ExpressionUUID -> 
+             "70b07aea-0dbb-4d2c-aaca-cffd4b1179e7"]}, Open]]}, Open]]}, 
+    Open]]}, WindowSize -> {1440, 831.75}, 
+ WindowMargins -> {{954, Automatic}, {Automatic, -6}}, 
+ Magnification :> 0.85*Inherited, FrontEndVersion -> 
+  "13.3 for Microsoft Windows (64-bit) (July 24, 2023)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "a45fb9eb-a27e-4bdc-a035-83c32813d81a"]

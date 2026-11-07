@@ -1,0 +1,191 @@
+Notebook[{Cell[CellGroupData[{Cell["Overlay 13C chemical shifts functions", 
+      "Title", ExpressionUUID -> "f10700c9-b655-4cf0-8d4e-37e4bf74fca7"], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"ChangeDirectory", "[", 
+            RowBox[{"NotebookDirectory", "[", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[96]:=", ExpressionUUID -> 
+          "76d3c355-5ef7-4822-a3ff-392a68410887"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"RandomCoilCShift", "[", 
+            "\"S\"", "]"}]], "Input", CellLabel -> "In[97]:=", 
+         ExpressionUUID -> "7db3c0fb-1d8a-4460-aa4e-c3d77d23c2a3"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"RandomCoilCShift", "[", 
+            "\"L\"", "]"}]], "Input", CellLabel -> "In[98]:=", 
+         ExpressionUUID -> "ceaf2306-d623-4a2b-aa48-ec6b69f7ab3e"]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[BoxData[RowBox[{RowBox[{RowBox[{"BetaStrandCShift", "[", "#", 
+                "]"}], "&"}], "/@", RowBox[{"{", RowBox[{"\"K\"", ",", 
+                "\"S\"", ",", "\"L\""}], "}"}]}]], "Input", 
+         CellLabel -> "In[99]:=", ExpressionUUID -> 
+          "f3e20396-854f-4378-8568-d78557c404b5"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"BetaStrandCShift", "[", 
+            "\"G\"", "]"}]], "Input", CellLabel -> "In[100]:=", 
+         ExpressionUUID -> "72db77dd-2a16-453f-a2d5-34be5a50064e"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"BetaStrandCShift", "[", 
+            "\"V\"", "]"}]], "Input", CellLabel -> "In[101]:=", 
+         ExpressionUUID -> "136379d1-b374-439f-945d-44b17f1beb2f"]}, Open]], 
+     Cell[BoxData[RowBox[{RowBox[{RowBox[{"PeptideAAs", "[", "PeptideSeq_", 
+             "]"}], ":=", RowBox[{"Characters", "[", 
+             RowBox[{RowBox[{"StringReplace", "[", RowBox[{"{", RowBox[
+                    {RowBox[{"\"Ac-\"", "\[Rule]", "\"\""}], ",", RowBox[
+                      {"\"-Am\"", "\[Rule]", "\"\""}]}], "}"}], "]"}], "[", 
+               "PeptideSeq", "]"}], "]"}]}], ";"}]], "Input", 
+      CellLabel -> "In[102]:=", ExpressionUUID -> 
+       "a6188768-c588-4279-8c63-14c19178afc2"], 
+     Cell[CellGroupData[{Cell[BoxData[{"KumarSLIGFsequence", 
+           "\[IndentingNewLine]", "KumarSLG3IGFsequence", 
+           "\[IndentingNewLine]", "KumarSLG5IGFsequence"}], "Input", 
+         CellLabel -> "In[103]:=", ExpressionUUID -> 
+          "ea25417b-45c8-4335-9b80-7c74b3dc48e1"]}, Open]], 
+     Cell[BoxData[RowBox[{RowBox[{"OverlayPeptideRandomCoilCshifts", "[", 
+           "peptideSequence_", "]"}], ":=", RowBox[{"Module", "[", 
+           RowBox[{RowBox[{"{", "chemicalShifts", "}"}], ",", 
+             "\[IndentingNewLine]", RowBox[{RowBox[{"chemicalShifts", "=", 
+                 RowBox[{RowBox[{RowBox[{"RandomCoilCShift", "[", "#", "]"}], 
+                     "&"}], "/@", RowBox[{"DeleteDuplicates", "[", RowBox[
+                      {"PeptideAAs", "[", "peptideSequence", "]"}], 
+                     "]"}]}]}], ";", "\[IndentingNewLine]", RowBox[
+                {"Table", "[", RowBox[{RowBox[{"Transpose", "[", RowBox[
+                      {"{", RowBox[{RowBox[{"-", RowBox[{"Flatten", "[", 
+                          RowBox[{"chemicalShifts", "[", RowBox[{"[", "i", 
+                          "]"}], "]"}], "]"}]}], ",", RowBox[
+                          {"ConstantArray", "[", RowBox[{RowBox[{RowBox[
+                          {"-", "0.05"}], "*", "i"}], ",", RowBox[{"Length", 
+                          "[", RowBox[{"Flatten", "[", RowBox[
+                          {"chemicalShifts", "[", RowBox[{"[", "i", "]"}], 
+                          "]"}], "]"}], "]"}]}], "]"}]}], "}"}], "]"}], ",", 
+                   RowBox[{"{", RowBox[{"i", ",", "1", ",", RowBox[{"Length", 
+                         "[", "chemicalShifts", "]"}]}], "}"}]}], "]"}]}]}], 
+           "\[IndentingNewLine]", "]"}]}]], "Input", 
+      CellLabel -> "In[106]:=", ExpressionUUID -> 
+       "611cb116-794b-4d24-b2b4-672001aa6a29"], 
+     Cell[BoxData[RowBox[{RowBox[{"OverlayPeptideBetaStrandCshifts", "[", 
+           "peptideSequence_", "]"}], ":=", RowBox[{"Module", "[", 
+           RowBox[{RowBox[{"{", "chemicalShifts", "}"}], ",", 
+             "\[IndentingNewLine]", RowBox[{RowBox[{"chemicalShifts", "=", 
+                 RowBox[{RowBox[{RowBox[{"BetaStrandCShift", "[", "#", "]"}], 
+                     "&"}], "/@", RowBox[{"DeleteDuplicates", "[", RowBox[
+                      {"PeptideAAs", "[", "peptideSequence", "]"}], 
+                     "]"}]}]}], ";", "\[IndentingNewLine]", RowBox[
+                {"Table", "[", RowBox[{RowBox[{"Transpose", "[", RowBox[
+                      {"{", RowBox[{RowBox[{"-", RowBox[{"Flatten", "[", 
+                          RowBox[{"chemicalShifts", "[", RowBox[{"[", "i", 
+                          "]"}], "]"}], "]"}]}], ",", RowBox[
+                          {"ConstantArray", "[", RowBox[{RowBox[{RowBox[
+                          {"-", "0.05"}], "*", "i"}], ",", RowBox[{"Length", 
+                          "[", RowBox[{"Flatten", "[", RowBox[
+                          {"chemicalShifts", "[", RowBox[{"[", "i", "]"}], 
+                          "]"}], "]"}], "]"}]}], "]"}]}], "}"}], "]"}], ",", 
+                   RowBox[{"{", RowBox[{"i", ",", "1", ",", RowBox[{"Length", 
+                         "[", "chemicalShifts", "]"}]}], "}"}]}], "]"}]}]}], 
+           "\[IndentingNewLine]", "]"}]}]], "Input", 
+      CellLabel -> "In[107]:=", ExpressionUUID -> 
+       "92434036-6575-4db0-8976-e18df30ceee1"], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"ListPlot", "[", 
+            RowBox[{RowBox[{"OverlayPeptideRandomCoilCshifts", "[", 
+                "\"KSL\"", "]"}], ",", RowBox[{"PlotMarkers", "->", 
+                RowBox[{"{", RowBox[{"\"\[FilledUpTriangle]\"", ",", 
+                    "Large"}], "}"}]}], ",", RowBox[{"PlotLegends", "->", 
+                RowBox[{"StringSplit", "[", RowBox[{"\"KSL\"", ",", "\"\""}], 
+                  "]"}]}]}], "]"}]], "Input", CellLabel -> "In[108]:=", 
+         ExpressionUUID -> "18e8aa0c-46e6-4d2b-93a4-3b31ff2d7a2f"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[RowBox[{"ListPlot", "[", 
+            RowBox[{"OverlayPeptideBetaStrandCshifts", "[", 
+              "KumarSLIGFsequence", "]"}], "]"}]], "Input", 
+         CellLabel -> "In[109]:=", ExpressionUUID -> 
+          "1558bbbf-0e1f-4d43-b140-163a558b42f9"]}, Open]], 
+     Cell[BoxData[""], "Input", CellLabel -> "In[110]:=", 
+      ExpressionUUID -> "a77fac35-11e7-4989-9360-8c15bceec771"], 
+     Cell[BoxData[""], "Input", CellLabel -> "In[111]:=", 
+      ExpressionUUID -> "f33a2e8c-b025-4287-b662-b507ce043d52"]}, Closed]], 
+  Cell[CellGroupData[{Cell["Get Data from NMR: ", "Title", 
+      ExpressionUUID -> "914a42f2-3a18-4f9b-a458-b21443b58c2a"], 
+     Cell[CellGroupData[{Cell[BoxData["ResetDirectory"], "Input", 
+         CellLabel -> "In[112]:=", ExpressionUUID -> 
+          "ecaa9258-53f5-42c0-88dd-ed08d13715ed"]}, Open]], 
+     Cell[CellGroupData[{Cell[BoxData[{RowBox[{"GetBrukerTitles", "[", 
+             RowBox[{"wdUnlabeled37c1", "=", " ", RowBox[{"Dropbox", "<>", 
+                 " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\\\\TR-2\
+0250611-37ColigomerWT-CPMAS-Efree\""}]}], "]"}], "\[IndentingNewLine]", 
+           RowBox[{"GetBrukerTitles", "[", RowBox[{"wdUnlabeled37c2", "=", 
+               " ", RowBox[{"Dropbox", "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\
+\\data\\\\tsudarshan\\\\TR-20250618-37ColigomerWT-CPMAS-Efree\""}]}], "]"}], 
+           "\[IndentingNewLine]", RowBox[{RowBox[{"GetBrukerTitles", "[", 
+               RowBox[{"wdUnlabeled3150kDa", "=", " ", RowBox[{"Dropbox", 
+                   "<>", " ", "\"\\\\NMR\\\\GT500nbYoda\\\\data\\\\tsudarshan\
+\\\\TR-20250527-150kDatest-CPMAS-Efree\""}]}], "]"}], 
+             "\[IndentingNewLine]"}], "\[IndentingNewLine]"}], "Input", 
+         CellLabel -> "In[113]:=", ExpressionUUID -> 
+          "d58fe153-37ba-4514-85d3-315045bd765d"], 
+        Cell[CellGroupData[{}, Open]], Cell[CellGroupData[{}, Open]], 
+        Cell[CellGroupData[{}, Open]]}, Open]], 
+     Cell[CellGroupData[
+       {Cell[
+         "Plotting Unlabeled WT 37c OLIGOMER made by Tarunya; (MAS 10000Hz)", 
+         "Section", ExpressionUUID -> 
+          "b30fad45-bc93-4bdb-87a5-ac4d16320cb4"], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Unlabaled37CPlot", "=", 
+               RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[
+                    {"Unlabeled37COligomer", "=", " ", RowBox[
+                      {"NormalizeData", "[", RowBox[{"TakeXRange", "[", 
+                         RowBox[{RowBox[{"GetBruker1D", "[", RowBox[
+                          {"wdUnlabeled37c1", ",", "1"}], "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", "200"}], ",", 
+                          " ", "5"}], "}"}]}], "]"}], "]"}]}], ",", 
+                   RowBox[{"PlotStyle", "\[Rule]", "Blue"}], ",", 
+                   RowBox[{"PlotLegends", "\[Rule]", RowBox[{"{", 
+                       "\"Unlabeled 37C WT oligomer\"", "}"}]}], ",", " ", 
+                   RowBox[{"FrameTicks", " ", "->", " ", "CNMRTicks1D"}], 
+                   ",", " ", RowBox[{"FrameLabel", " ", "->", " ", RowBox[
+                      {"{", RowBox[{"\"13C NMR Frequency (ppm)\"", ",", " ", 
+                         "\"Normalized Intensity\""}], "}"}]}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[116]:=", ExpressionUUID -> 
+             "09c24ced-1a63-41f5-931f-c5ec3128b1b2"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Unlabaled150kDaPlot", "=", 
+               RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[
+                    {"Unlabeled150Oligomer", "=", " ", RowBox[
+                      {"NormalizeData", "[", RowBox[{"TakeXRange", "[", 
+                         RowBox[{RowBox[{"GetBruker1D", "[", RowBox[
+                          {"wdUnlabeled3150kDa", ",", "6"}], "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", "200"}], ",", 
+                          " ", "5"}], "}"}]}], "]"}], "]"}]}], ",", 
+                   RowBox[{"PlotStyle", "\[Rule]", "Red"}], ",", RowBox[
+                    {"PlotLegends", "\[Rule]", RowBox[{"{", 
+                       "\"Unlabeled 150Kda WT oligomer\"", "}"}]}], ",", " ", 
+                   RowBox[{"FrameTicks", " ", "->", " ", "CNMRTicks1D"}], 
+                   ",", " ", RowBox[{"FrameLabel", " ", "->", " ", RowBox[
+                      {"{", RowBox[{"\"13C NMR Frequency (ppm)\"", ",", " ", 
+                         "\"Normalized Intensity\""}], "}"}]}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[117]:=", ExpressionUUID -> 
+             "80bddf0b-8f9e-4ec4-ac57-7bad5a9aed03"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Unlabaled37C2Plot", "=", 
+               RowBox[{"NMR1DPlot", "[", RowBox[{RowBox[
+                    {"Unlabeled372COligomer", "=", " ", RowBox[
+                      {"NormalizeData", "[", RowBox[{"TakeXRange", "[", 
+                         RowBox[{RowBox[{"GetBruker1D", "[", RowBox[
+                          {"wdUnlabeled37c2", ",", "2"}], "]"}], ",", " ", 
+                          RowBox[{"{", RowBox[{RowBox[{"-", "200"}], ",", 
+                          " ", "5"}], "}"}]}], "]"}], "]"}]}], ",", 
+                   RowBox[{"PlotStyle", "\[Rule]", "Black"}], ",", 
+                   RowBox[{"PlotLegends", "\[Rule]", RowBox[{"{", 
+                       "\"Unlabeled 37C WT oligomer (2)\"", "}"}]}], ",", 
+                   " ", RowBox[{"FrameTicks", " ", "->", " ", 
+                     "CNMRTicks1D"}], ",", " ", RowBox[{"FrameLabel", " ", 
+                     "->", " ", RowBox[{"{", RowBox[
+                        {"\"13C NMR Frequency (ppm)\"", ",", " ", 
+                         "\"Normalized Intensity\""}], "}"}]}]}], "]"}]}]], 
+            "Input", CellLabel -> "In[118]:=", ExpressionUUID -> 
+             "f5891cc9-22fe-4c0d-8a1e-35ee7503fc7a"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"Unlabaled150kDaPlot", ",", "Unlabaled37CPlot", ",", 
+                 "Unlabaled37C2Plot"}], "]"}]], "Input", CellLabel -> 
+             "In[119]:=", ExpressionUUID -> 
+             "b2f06394-ae10-43ae-b570-09333e3119fe"]}, Open]], 
+        Cell[CellGroupData[{Cell[BoxData[RowBox[{"Show", "[", RowBox[
+                {"Unlabaled37CPlot", ",", "Unlabaled37C2Plot"}], "]"}]], 
+            "Input", CellLabel -> "In[120]:=", ExpressionUUID -> 
+             "f621297e-c690-4b85-89b8-aaba0b5da501"]}, Open]]}, Open]]}, 
+    Open]]}, WindowSize -> {1440, 741.75}, 
+ WindowMargins -> {{954, Automatic}, {Automatic, -6}}, 
+ Magnification :> 0.75*Inherited, FrontEndVersion -> 
+  "13.3 for Microsoft Windows (64-bit) (July 24, 2023)", 
+ StyleDefinitions -> "Default.nb", ExpressionUUID -> 
+  "aaff1569-b8ea-4883-9ff3-6ee4d5f7e2fb"]
